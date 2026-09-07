@@ -1,6 +1,7 @@
 // The single list the home screen and router read. Add new activities here.
 import { Cpu, Crown, Library } from 'lucide-react';
 import { boardMemory } from './board-memory';
+import { boardVision } from './board-vision';
 import { bulletTrainer } from './bullet-trainer';
 import { openingTrainer } from './opening-trainer';
 import { visualisation } from './visualisation';
@@ -8,6 +9,7 @@ import type { ActivityDefinition } from './types';
 
 export const activities: ActivityDefinition[] = [
   bulletTrainer,
+  boardVision,
   openingTrainer,
   boardMemory,
   visualisation,

@@ -1,0 +1,341 @@
+.bv {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 380px);
+  gap: 24px;
+  padding: 24px 28px 28px;
+  position: relative;
+}
+
+.bv__board {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bv__mental {
+  width: min(100%, 70vh);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 40%, rgba(90, 169, 255, 0.14), transparent 60%), rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+}
+
+.bv__mental-square {
+  font-size: clamp(64px, 18vh, 160px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bv__mental-hint {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.bv__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: auto;
+}
+
+.bv__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.bv__heading svg {
+  color: #8be9fd;
+}
+
+.bv__lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.bv__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.bv__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bv__chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 8px;
+}
+
+.bv__chips .chip {
+  padding: 9px 8px;
+  font-size: 13px;
+}
+
+.bv__blurb {
+  color: var(--muted);
+  font-size: 12px;
+  min-height: 2.4em;
+}
+
+.bv__best {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.bv__best svg {
+  color: var(--gold);
+}
+
+.bv__best strong {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.bv__spacer {
+  flex: 1;
+}
+
+.bv__hint {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ---- Running ------------------------------------------------------------ */
+.bv__clock {
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bv__clock.is-low {
+  color: var(--danger);
+}
+
+.bv__progress {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bv__progress > div {
+  height: 100%;
+  background: linear-gradient(90deg, #8be9fd, var(--success));
+  transition: width 60ms linear;
+}
+
+.bv__prompt-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(139, 233, 253, 0.08);
+  border: 1px solid rgba(139, 233, 253, 0.4);
+  text-align: center;
+}
+
+.bv__prompt-card small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.bv__prompt {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.bv__orientation {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.bv__answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.bv__answers .btn {
+  padding: 16px;
+  font-size: 16px;
+}
+
+.bv__answers .btn--light {
+  background: #f0d9b5;
+  color: #222;
+  border-color: #e6c99a;
+}
+
+.bv__answers .btn--dark {
+  background: #b58863;
+  color: #fff;
+  border-color: #9c704c;
+}
+
+.bv__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.bv__knight-status {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.bv__knight-status.is-solved {
+  border-color: rgba(64, 200, 120, 0.6);
+  background: rgba(64, 200, 120, 0.12);
+}
+
+.bv__knight-status.is-solved.is-suboptimal {
+  border-color: rgba(255, 200, 60, 0.6);
+  background: rgba(255, 200, 60, 0.1);
+}
+
+.bv__panel.is-miss {
+  animation: bv-shake 220ms ease;
+}
+
+@keyframes bv-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* ---- Results overlay (timed modes) ---------------------------------------- */
+.bv__overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 10, 14, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.bv__results {
+  width: min(480px, calc(100vw - 48px));
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.bv__results h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.bv__results-score {
+  margin: 12px 0 4px;
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.bv__results-caption {
+  color: var(--muted);
+}
+
+.bv__results-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(242, 201, 76, 0.15);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.bv__results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.bv__results-grid .stat {
+  text-align: left;
+}
+
+.bv__results-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .bv {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .bv__panel {
+    max-height: 46vh;
+  }
+}

@@ -6,7 +6,7 @@ import { isMuted, setMuted, sounds } from '@/lib/sound';
 import { loadJson, saveJson } from '@/lib/storage';
 import { DURATIONS, nextPuzzle, type DurationSec, type Puzzle } from './drill';
 import { getBest, recordResult, type BulletResult } from './stats';
-import { useCountdown } from './useCountdown';
+import { useCountdown } from '@/lib/useCountdown';
 import './bullet-trainer.css';
 
 type Phase = 'idle' | 'running' | 'finished';
