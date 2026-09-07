@@ -136,6 +136,14 @@ eval bar, and the best move (drawn on the board) with its main line.
 Positions come from the Lichess pool, the classic games, or your repertoire.
 Exact and within-one rates are tracked over the last 20 positions.
 
+### Candidate Moves
+Before looking for the best move, list the moves worth considering. Play up
+to three candidates on the board (each snaps back and is drawn as a blue
+arrow), then reveal Stockfish's top three from a MultiPV search. Hits are
+marked green, misses red, and candidates the engine did not rank get their
+own quick evaluation so you see what your idea would have cost. Tracks how
+often you find the best move and the average overlap with the top three.
+
 All engine features share one Stockfish process through
 `src/engine/session.ts`: searches are queued, MultiPV lines are assembled,
 and scores are normalised to White's perspective.
@@ -160,7 +168,9 @@ src/
     board-memory/    positions.ts (sources + scoring), lichessPool.ts (500-game
                      batches, seen tracking, prefetch), stats.ts, BoardMemory.tsx
     visualisation/   exercise.ts (sequences + questions), sources.ts, Visualisation.tsx
-    evaluation/      assessment.ts (scale, sources), EvaluationTrainer.tsx
+    evaluation/      assessment.ts (scale), EvaluationTrainer.tsx
+    candidates/      drill.ts (ranking + comparison), CandidateDrill.tsx
+    shared/          positionSources.ts (Lichess pool / classics / openings picker)
   board/             Board.tsx: React wrapper around chessground (lichess board)
   chess/             Board geometry, single-piece drills, chess.js position helpers
   engine/            ChessEngine / EngineProvider contracts, UCI parser,

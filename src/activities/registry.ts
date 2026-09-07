@@ -3,6 +3,7 @@ import { Cpu, Crown, Library } from 'lucide-react';
 import { boardMemory } from './board-memory';
 import { boardVision } from './board-vision';
 import { bulletTrainer } from './bullet-trainer';
+import { candidateDrill } from './candidates';
 import { evaluationTrainer } from './evaluation';
 import { openingTrainer } from './opening-trainer';
 import { visualisation } from './visualisation';
@@ -15,6 +16,7 @@ export const activities: ActivityDefinition[] = [
   boardMemory,
   visualisation,
   evaluationTrainer,
+  candidateDrill,
   {
     id: 'master-games',
     title: 'Master Games',
