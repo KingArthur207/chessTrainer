@@ -1,0 +1,349 @@
+.cm {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(340px, 30vw, 440px);
+  gap: 24px;
+  padding: 24px 28px 28px;
+}
+
+.cm__board {
+  min-width: 0;
+  min-height: 0;
+}
+
+.cm__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: auto;
+}
+
+.cm__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.cm__heading svg {
+  color: #a6e3a1;
+}
+
+.cm__lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cm__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cm__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cm__chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.cm__chips .chip {
+  padding: 9px 8px;
+  font-size: 13px;
+}
+
+.cm__chips .chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cm__blurb {
+  color: var(--muted);
+  font-size: 12px;
+  min-height: 2.4em;
+}
+
+.cm__stats-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.cm__stats-line svg {
+  color: var(--gold);
+}
+
+.cm__stats-line strong {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cm__spacer {
+  flex: 1;
+}
+
+.cm__hint {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.cm__notice {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 200, 60, 0.12);
+  border: 1px solid rgba(255, 200, 60, 0.4);
+  font-size: 13px;
+}
+
+.cm__source {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.cm__turn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.cm__turn i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Candidate slots -------------------------------------------------------- */
+.cm__slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.cm__slot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cm__slot.is-filled {
+  border-style: solid;
+  border-color: rgba(90, 169, 255, 0.6);
+  background: rgba(90, 169, 255, 0.12);
+  color: var(--text);
+}
+
+.cm__slot.is-hit {
+  border-color: rgba(64, 200, 120, 0.7);
+  background: rgba(64, 200, 120, 0.14);
+}
+
+.cm__slot.is-miss {
+  border-color: rgba(255, 92, 92, 0.6);
+  background: rgba(255, 92, 92, 0.1);
+}
+
+.cm__slot .san {
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.cm__slot .meta {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.cm__slot button {
+  margin-left: auto;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+
+.cm__slot button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.cm__analysing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.cm__analysing i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: cm-pulse 1s ease-in-out infinite;
+}
+
+@keyframes cm-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---- Reveal ---------------------------------------------------------------- */
+.cm__verdict {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cm__verdict.is-great {
+  border-color: rgba(64, 200, 120, 0.6);
+  background: rgba(64, 200, 120, 0.12);
+}
+
+.cm__verdict.is-ok {
+  border-color: rgba(255, 200, 60, 0.6);
+  background: rgba(255, 200, 60, 0.08);
+}
+
+.cm__verdict.is-poor {
+  border-color: rgba(255, 92, 92, 0.6);
+  background: rgba(255, 92, 92, 0.08);
+}
+
+.cm__engine {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cm__engine li {
+  display: grid;
+  grid-template-columns: 26px 64px 60px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.cm__engine li.is-yours {
+  border-color: rgba(64, 200, 120, 0.6);
+  background: rgba(64, 200, 120, 0.1);
+}
+
+.cm__engine .rank {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cm__engine li:first-child .rank {
+  background: rgba(64, 200, 120, 0.3);
+}
+
+.cm__engine .san {
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.cm__engine .score {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.cm__engine .line {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cm__legend {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cm__legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .cm {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .cm__panel {
+    max-height: 48vh;
+  }
+}
