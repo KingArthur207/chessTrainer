@@ -90,3 +90,34 @@ export function moveNumberPrefix(fenBefore: string, forceBlack = false): string 
   if (turnOf(fenBefore) === 'white') return `${n}.`;
   return forceBlack ? `${n}...` : '';
 }
+
+/** Convert a UCI move list (from `fen`) to SAN, stopping at the first illegal move. */
+export function uciLineToSan(fen: string, uci: string[]): string[] {
+  const chess = new Chess(fen);
+  const out: string[] = [];
+  for (const m of uci) {
+    try {
+      const move = chess.move({ from: m.slice(0, 2), to: m.slice(2, 4), promotion: m.slice(4, 5) || undefined });
+      out.push(move.san);
+    } catch {
+      break;
+    }
+  }
+  return out;
+}
+
+/** "23.Nf3 Bxe4 24.Qxe4" style text for a SAN line starting from `fen`. */
+export function numberedLine(fen: string, sans: string[]): string {
+  const parts: string[] = [];
+  let white = turnOf(fen) === 'white';
+  let num = fullmoveOf(fen);
+  sans.forEach((san, i) => {
+    if (white) parts.push(`${num}.${san}`);
+    else {
+      parts.push(i === 0 ? `${num}...${san}` : san);
+      num++;
+    }
+    white = !white;
+  });
+  return parts.join(' ');
+}

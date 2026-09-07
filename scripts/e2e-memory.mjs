@@ -136,6 +136,11 @@ try {
   pieces = await boardPieces();
   check('placed pieces can be moved', pieces.length === 1 && pieces[0].key === 'd5', JSON.stringify(pieces));
   const g = await geometry();
+  // Overshooting the edge by a few pixels still lands on the edge square.
+  await dragTo(await center('d5'), { x: g.left - 12, y: (await center('a5')).y });
+  pieces = await boardPieces();
+  check('a drop just past the edge lands on the edge square', pieces.length === 1 && pieces[0].key === 'a5', JSON.stringify(pieces));
+  await dragTo(await center('a5'), await center('d5'));
   await dragTo(await center('d5'), { x: g.left - 80, y: g.top + 40 });
   check('dragging off the board removes the piece', (await boardPieces()).length === 0 && (await placedText()) === `0 of ${target2.length}`);
   await page.click('.bm__palette piece.black.queen');

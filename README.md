@@ -127,6 +127,19 @@ Sequences come from the Lichess pool (which stores ten continuation moves per
 position, shared with Board Memory), the classic games, or the main lines of
 your own openings.
 
+### Evaluation Trainer
+Assess a position on a seven-step scale (White winning … Equal … Black
+winning; keys 1–7) while Stockfish analyses it in the background for 1, 3 or
+6 seconds. The reveal shows the engine's score from White's point of view,
+which step it falls in, whether you were exact, one step off or further, an
+eval bar, and the best move (drawn on the board) with its main line.
+Positions come from the Lichess pool, the classic games, or your repertoire.
+Exact and within-one rates are tracked over the last 20 positions.
+
+All engine features share one Stockfish process through
+`src/engine/session.ts`: searches are queued, MultiPV lines are assembled,
+and scores are normalised to White's perspective.
+
 The cards for Master Games, Engine Analysis and Endgame Drills are
 placeholders for the next activities.
 
@@ -147,10 +160,12 @@ src/
     board-memory/    positions.ts (sources + scoring), lichessPool.ts (500-game
                      batches, seen tracking, prefetch), stats.ts, BoardMemory.tsx
     visualisation/   exercise.ts (sequences + questions), sources.ts, Visualisation.tsx
+    evaluation/      assessment.ts (scale, sources), EvaluationTrainer.tsx
   board/             Board.tsx: React wrapper around chessground (lichess board)
   chess/             Board geometry, single-piece drills, chess.js position helpers
   engine/            ChessEngine / EngineProvider contracts, UCI parser,
-                     NativeUciEngine, provider registry
+                     NativeUciEngine, provider registry, session.ts (shared
+                     engine: queued analysis, MultiPV, White-perspective scores)
   games/             GameSource contract, PGN parsing (chess.js), source registry
   components/        AppShell (header, back button, fullscreen toggle), PiecePalette
   pages/             Home, ActivityPage (routes activities from the registry)

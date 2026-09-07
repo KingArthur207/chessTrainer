@@ -44,6 +44,8 @@ export interface ChessEngine {
   go(options: SearchOptions, onInfo?: (info: EngineInfo) => void): Promise<BestMove>;
   /** Interrupt the current search (the pending `go` still resolves). */
   stop(): void;
+  /** Set a UCI option (e.g. MultiPV, Skill Level). Optional for non-UCI engines. */
+  setOption?(name: string, value: string | number): void;
   /** Free all resources. The instance must not be used afterwards. */
   dispose(): void;
 }

@@ -84,9 +84,23 @@ export function emptyPool(): LichessPool {
   return { positions: [], seen: [], seenVis: [], consumed: [], fetchedAt: null };
 }
 
+/** Positions from the first pool format held only the placement field; the
+ * engine and visualisation drills need full FENs, so those are dropped. */
+export function migratePool(pool: LichessPool): LichessPool {
+  const keep = pool.positions.filter((p) => p.fen.includes(' '));
+  if (keep.length === pool.positions.length) return pool;
+  const ids = new Set(keep.map((p) => p.id));
+  return {
+    ...pool,
+    positions: keep,
+    seen: pool.seen.filter((id) => ids.has(id)),
+    seenVis: (pool.seenVis ?? []).filter((id) => ids.has(id)),
+  };
+}
+
 export function loadPool(): LichessPool {
-  const pool = loadJson<LichessPool>(POOL_KEY, emptyPool());
-  return { ...emptyPool(), ...pool };
+  const pool = migratePool({ ...emptyPool(), ...loadJson<LichessPool>(POOL_KEY, emptyPool()) });
+  return pool;
 }
 
 export function savePool(pool: LichessPool): void {

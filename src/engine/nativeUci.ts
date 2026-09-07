@@ -7,7 +7,7 @@ import { buildGoCommand, parseBestMoveLine, parseInfoLine } from './uci';
 type LineHandler = (line: string) => void;
 
 export class NativeUciEngine implements ChessEngine {
-  readonly name: string;
+  name: string;
   private handlers = new Set<LineHandler>();
   private unsubscribe: (() => void) | null = null;
   private disposed = false;
@@ -31,8 +31,20 @@ export class NativeUciEngine implements ChessEngine {
       unsubLine();
       unsubExit();
     };
-    await this.request('uci', (l) => l === 'uciok');
+    const idHandler: LineHandler = (line) => {
+      if (line.startsWith('id name ')) this.name = line.slice('id name '.length).trim();
+    };
+    this.handlers.add(idHandler);
+    try {
+      await this.request('uci', (l) => l === 'uciok');
+    } finally {
+      this.handlers.delete(idHandler);
+    }
     await this.request('isready', (l) => l === 'readyok');
+  }
+
+  setOption(name: string, value: string | number): void {
+    this.send(`setoption name ${name} value ${value}`);
   }
 
   setPosition(fen: string, moves: string[] = []): void {
@@ -42,9 +54,7 @@ export class NativeUciEngine implements ChessEngine {
   }
 
   async go(options: SearchOptions, onInfo?: (info: EngineInfo) => void): Promise<BestMove> {
-    if (options.multiPv !== undefined) {
-      this.send(`setoption name MultiPV value ${options.multiPv}`);
-    }
+    if (options.multiPv !== undefined) this.setOption('MultiPV', options.multiPv);
     const infoHandler: LineHandler = (line) => {
       const info = parseInfoLine(line);
       if (info && onInfo) onInfo(info);
