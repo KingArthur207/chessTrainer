@@ -32,8 +32,13 @@ export interface AnalyseOptions {
   depth?: number;
   moveTimeMs?: number;
   multiPv?: number;
+  /** Limit playing strength to this Elo (Stockfish: 1320–3190). Omit for full strength. */
+  elo?: number;
   onProgress?: (partial: Evaluation) => void;
 }
+
+export const ELO_MIN = 1320;
+export const ELO_MAX = 3190;
 
 const MATE_CP = 100_000;
 
@@ -77,6 +82,8 @@ export class EngineSession {
   private initPromise: Promise<ChessEngine> | null = null;
   private queue: Promise<unknown> = Promise.resolve();
   private engineFactory: () => Promise<ChessEngine>;
+  /** Strength currently configured on the engine (null = full). */
+  private limitedTo: number | null = null;
 
   constructor(factory?: () => Promise<ChessEngine>) {
     this.engineFactory =
@@ -118,6 +125,7 @@ export class EngineSession {
       const whiteToMove = fen.split(' ')[1] !== 'b';
       const multiPv = options.multiPv ?? 1;
       engine.setOption?.('MultiPV', multiPv);
+      this.applyStrength(engine, options.elo ?? null);
       engine.setPosition(fen);
       const lines = new Map<number, EvalLine>();
       let depth = 0;
@@ -150,6 +158,24 @@ export class EngineSession {
     return promise;
   }
 
+  /** Ask the engine for a move to play, optionally at limited strength. */
+  async playMove(fen: string, options: { elo?: number | null; moveTimeMs?: number } = {}): Promise<string | null> {
+    const ev = await this.analyse(fen, { moveTimeMs: options.moveTimeMs ?? 600, multiPv: 1, elo: options.elo ?? undefined });
+    return ev.bestMove;
+  }
+
+  private applyStrength(engine: ChessEngine, elo: number | null): void {
+    const target = elo === null ? null : Math.min(ELO_MAX, Math.max(ELO_MIN, Math.round(elo)));
+    if (target === this.limitedTo) return;
+    if (target === null) {
+      engine.setOption?.('UCI_LimitStrength', 'false');
+    } else {
+      engine.setOption?.('UCI_LimitStrength', 'true');
+      engine.setOption?.('UCI_Elo', target);
+    }
+    this.limitedTo = target;
+  }
+
   /** Interrupt the running search; its promise still resolves with what was found. */
   stop(): void {
     this.engine?.stop();
@@ -159,6 +185,7 @@ export class EngineSession {
     this.engine?.dispose();
     this.engine = null;
     this.initPromise = null;
+    this.limitedTo = null;
   }
 }
 

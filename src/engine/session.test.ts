@@ -75,6 +75,22 @@ describe('EngineSession', () => {
     expect(positions[1]).toContain(BLACK_FEN);
   });
 
+  it('limits strength only for play requests and resets it for analysis', async () => {
+    const { engine, calls } = fakeEngine(() => ({ infos: [{ depth: 3, scoreCp: 10, pv: ['e2e4'] }], best: { bestMove: 'e2e4' } }));
+    const session = new EngineSession(async () => engine);
+    expect(await session.playMove(WHITE_FEN, { elo: 1500 })).toBe('e2e4');
+    expect(calls).toContain('option UCI_LimitStrength=true');
+    expect(calls).toContain('option UCI_Elo=1500');
+    calls.length = 0;
+    await session.playMove(WHITE_FEN, { elo: 1500 });
+    expect(calls.filter((c) => c.startsWith('option UCI_'))).toEqual([]); // unchanged strength: no chatter
+    await session.analyse(WHITE_FEN);
+    expect(calls).toContain('option UCI_LimitStrength=false');
+    calls.length = 0;
+    await session.playMove(WHITE_FEN, { elo: 99999 });
+    expect(calls).toContain('option UCI_Elo=3190');
+  });
+
   it('surfaces a missing engine as an error', async () => {
     const session = new EngineSession(async () => {
       throw new Error('no engine');
