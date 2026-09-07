@@ -1,0 +1,332 @@
+.bm {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 28vw, 420px);
+  gap: 24px;
+  padding: 24px 28px 28px;
+}
+
+.bm__board {
+  min-width: 0;
+  min-height: 0;
+}
+
+.bm__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: auto;
+}
+
+.bm__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.bm__heading svg {
+  color: #c792ea;
+}
+
+.bm__lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.bm__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.bm__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bm__chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.bm__chips .chip {
+  padding: 9px 8px;
+  font-size: 13px;
+}
+
+.bm__chips .chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bm__blurb {
+  color: var(--muted);
+  font-size: 12px;
+  min-height: 2.4em;
+}
+
+.bm__stats-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.bm__stats-line svg {
+  color: var(--gold);
+}
+
+.bm__stats-line strong {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.bm__spacer {
+  flex: 1;
+}
+
+.bm__hint {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.bm__notice {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 200, 60, 0.12);
+  border: 1px solid rgba(255, 200, 60, 0.4);
+  font-size: 13px;
+}
+
+/* ---- Lichess pool ---------------------------------------------------------- */
+.bm__pool {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.bm__pool-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.bm__pool-line svg {
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.bm__pool-line small {
+  margin-left: auto;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.bm__pool-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bm__pool-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bm__pool-bar > div {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--success));
+  transition: width 300ms ease;
+}
+
+.bm__pool-status {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.bm__pool-status.is-error {
+  color: var(--danger);
+}
+
+.bm__pool .btn {
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+/* ---- Memorise ------------------------------------------------------------ */
+.bm__status {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+}
+
+.bm__status.is-flash {
+  border-color: rgba(199, 146, 234, 0.6);
+  background: rgba(199, 146, 234, 0.12);
+}
+
+.bm__status.is-result {
+  border-color: rgba(64, 200, 120, 0.6);
+  background: rgba(64, 200, 120, 0.12);
+}
+
+.bm__timer {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bm__timer > div {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #c792ea, var(--accent));
+  animation-name: bm-shrink;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bm-shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.board-frame.is-flash .cg-wrap {
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.7),
+    0 0 0 3px rgba(199, 146, 234, 0.8);
+}
+
+/* ---- Rebuild ------------------------------------------------------------- */
+.bm__tools {
+  display: flex;
+  gap: 6px;
+}
+
+.bm__tools .btn {
+  flex: 1;
+  padding: 8px;
+  font-size: 13px;
+}
+
+.bm__tools .btn.is-active {
+  border-color: var(--accent);
+  background: rgba(90, 169, 255, 0.16);
+}
+
+.bm__count {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.bm__count strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Result -------------------------------------------------------------- */
+.bm__accuracy {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bm__accuracy.is-great {
+  color: var(--success);
+}
+
+.bm__accuracy.is-poor {
+  color: var(--danger);
+}
+
+.bm__result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.bm__result-grid .stat {
+  padding: 10px;
+}
+
+.bm__result-grid .stat__value {
+  font-size: 22px;
+}
+
+.bm__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.bm__legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.bm__source-label {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .bm {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .bm__panel {
+    max-height: 46vh;
+  }
+
+  .piece-palette {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}

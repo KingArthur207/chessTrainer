@@ -1,0 +1,105 @@
+/* Board chrome on top of chessground's base + brown + cburnett themes. */
+.board-frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+.board-frame .cg-wrap {
+  border-radius: 6px;
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  transition: box-shadow 150ms ease;
+}
+
+.board-frame.is-miss .cg-wrap {
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.7),
+    0 0 0 3px rgba(255, 92, 92, 0.85);
+}
+
+.board-frame.is-locked .cg-wrap {
+  filter: saturate(0.85) brightness(0.9);
+}
+
+/* Custom highlight classes (chessground `highlight.custom`). */
+cg-board square.target {
+  background: radial-gradient(circle, rgba(64, 200, 120, 0.55) 0%, rgba(64, 200, 120, 0.45) 55%, rgba(64, 200, 120, 0.15) 100%);
+  box-shadow: inset 0 0 0 3px rgba(40, 190, 110, 0.95);
+  animation: target-pulse 900ms ease-in-out infinite;
+}
+
+@keyframes target-pulse {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 3px rgba(40, 190, 110, 0.95);
+  }
+  50% {
+    box-shadow: inset 0 0 0 5px rgba(40, 190, 110, 0.65);
+  }
+}
+
+cg-board square.origin {
+  background: rgba(90, 169, 255, 0.35);
+}
+
+/* Coordinates tucked inside the edge squares (lichess "inside" style):
+   rank numbers top-left of the a-file, file letters bottom-right of rank 1. */
+.cg-wrap coords {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: max(9px, calc(var(--cg-size, 480px) / 46));
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.cg-wrap coords.ranks {
+  top: 0;
+  left: 0;
+  width: auto;
+  height: 100%;
+  padding: 4px 0 0 5px;
+}
+
+.cg-wrap coords.ranks coord {
+  transform: none;
+}
+
+.cg-wrap coords.files {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  padding: 0 0 4px;
+}
+
+.cg-wrap coords.files coord {
+  text-align: right;
+  padding-right: 5px;
+}
+
+cg-board square.hint {
+  background: radial-gradient(circle, rgba(255, 200, 60, 0.6) 0%, rgba(255, 200, 60, 0.35) 70%);
+  box-shadow: inset 0 0 0 3px rgba(255, 190, 40, 0.9);
+}
+
+/* Board Memory result marks. */
+cg-board square.correct {
+  background: rgba(64, 200, 120, 0.45);
+}
+
+cg-board square.missing {
+  background: rgba(255, 200, 60, 0.5);
+  box-shadow: inset 0 0 0 3px rgba(255, 190, 40, 0.9);
+}
+
+cg-board square.wrong {
+  background: rgba(255, 92, 92, 0.55);
+  box-shadow: inset 0 0 0 3px rgba(255, 92, 92, 0.9);
+}

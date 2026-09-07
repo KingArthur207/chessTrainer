@@ -1,0 +1,76 @@
+.shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__header {
+  height: 56px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(15, 17, 21, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  -webkit-app-region: drag;
+  transition: padding-left 150ms ease;
+}
+
+/* Leave room for the macOS traffic lights when the window is not fullscreen. */
+body.has-mac-titlebar .shell__header {
+  padding-left: 88px;
+}
+
+.shell__header button,
+.shell__header a {
+  -webkit-app-region: no-drag;
+}
+
+.shell__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.shell__logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.shell__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+.shell__title {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.shell__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shell__content {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
