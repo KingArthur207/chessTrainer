@@ -52,6 +52,16 @@ square) as fast as you can. Choose 30 s, 45 s or 1 min.
 - Results show solved, misses, accuracy, average and fastest move, and the
   personal best per duration is remembered.
 
+### Board Vision
+Three timed-or-scored drills for board sense. **Find the square**: a square
+name appears and you click it on a board without coordinates, from White's or
+Black's side (or random). **Square colour**: no board at all; say whether the
+named square is light or dark (buttons or the L and D keys). **Knight route**:
+bring a knight to a target square in the fewest moves without landing on a
+square the enemy pawns attack; the drill counts your moves against the
+breadth-first optimum, marks unsafe attempts, and can draw the optimal route.
+Personal bests are kept per drill and time.
+
 ### Opening Trainer
 A Chessable-style repertoire trainer.
 
@@ -131,6 +141,7 @@ electron/            Main process: window, menu, IPC, native UCI engine bridge
 src/
   activities/        One folder per activity + registry.ts (home screen list)
     bullet-trainer/
+    board-vision/    drills.ts (square/colour prompts, knight puzzles), BoardVision.tsx
     opening-trainer/ model.ts (tree), pgn.ts (import/export), srs.ts, store.ts,
                      editor, practice session
     board-memory/    positions.ts (sources + scoring), lichessPool.ts (500-game

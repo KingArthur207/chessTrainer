@@ -15,7 +15,7 @@
     "typecheck": "tsc -b",
     "test": "vitest run",
     "preview": "vite preview",
-    "test:e2e": "node scripts/e2e-electron.mjs && node scripts/e2e-openings.mjs && node scripts/e2e-memory.mjs && node scripts/e2e-visualisation.mjs",
+    "test:e2e": "node scripts/e2e-electron.mjs && node scripts/e2e-openings.mjs && node scripts/e2e-memory.mjs && node scripts/e2e-visualisation.mjs && node scripts/e2e-vision.mjs",
     "fetch:stockfish": "node scripts/fetch-stockfish.mjs"
   },
   "dependencies": {

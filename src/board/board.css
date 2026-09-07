@@ -103,3 +103,8 @@ cg-board square.wrong {
   background: rgba(255, 92, 92, 0.55);
   box-shadow: inset 0 0 0 3px rgba(255, 92, 92, 0.9);
 }
+
+/* Knight-route drill: squares the pawns attack. */
+cg-board square.forbidden {
+  background: radial-gradient(circle, rgba(255, 92, 92, 0.75) 0 18%, transparent 20%);
+}

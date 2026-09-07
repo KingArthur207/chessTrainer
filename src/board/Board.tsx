@@ -28,6 +28,8 @@ export interface BoardProps {
   /** Piece placement (full FEN or just the placement field). */
   fen: string;
   orientation?: 'white' | 'black';
+  /** Show file/rank labels (default true). */
+  coordinates?: boolean;
   /** When false, pieces cannot be moved. */
   interactive?: boolean;
   /** Map of square -> CSS class rendered under the pieces (see board.css). */
@@ -71,6 +73,7 @@ export const Board = forwardRef<BoardHandle, BoardProps>(function Board(
   {
     fen,
     orientation = 'white',
+    coordinates = true,
     interactive = true,
     highlights = EMPTY_HIGHLIGHTS,
     lastMove,
@@ -127,7 +130,7 @@ export const Board = forwardRef<BoardHandle, BoardProps>(function Board(
       turnColor,
       check,
       lastMove,
-      coordinates: true,
+      coordinates,
       disableContextMenu: true,
       // Never `viewOnly`: chessground binds its pointer handlers only on the
       // first render and skips them when viewOnly is set, so locking is done
@@ -212,6 +215,17 @@ export const Board = forwardRef<BoardHandle, BoardProps>(function Board(
   useEffect(() => {
     apiRef.current?.set({ draggable: { deleteOnDropOff } });
   }, [deleteOnDropOff]);
+
+  // Coordinates are part of the wrapper markup, so toggling needs a redraw.
+  const coordinatesRef = useRef(coordinates);
+  useEffect(() => {
+    if (coordinatesRef.current === coordinates) return;
+    coordinatesRef.current = coordinates;
+    const api = apiRef.current;
+    if (!api) return;
+    api.set({ coordinates });
+    api.redrawAll();
+  }, [coordinates]);
 
   // Lock/unlock by toggling movability rather than viewOnly (see above).
   useEffect(() => {

@@ -150,3 +150,41 @@ export function singlePieceFen(piece: Piece, square: Square): string {
   }
   return rows.join('/');
 }
+
+/** Colour of a square: a1 is dark. */
+export function squareColor(sq: Square): 'light' | 'dark' {
+  return (fileIndex(sq) + rankIndex(sq)) % 2 === 0 ? 'dark' : 'light';
+}
+
+/** Squares attacked by a pawn of `color` standing on `sq`. */
+export function pawnAttacks(sq: Square, color: Color): Square[] {
+  const dir = color === 'white' ? 1 : -1;
+  const f = fileIndex(sq);
+  const r = rankIndex(sq);
+  return [squareAt(f - 1, r + dir), squareAt(f + 1, r + dir)].filter((x): x is Square => x !== null);
+}
+
+/**
+ * Shortest knight route from `from` to `to` that never lands on a forbidden
+ * square (breadth-first search). Returns the squares visited including both
+ * ends, or null when unreachable.
+ */
+export function knightPath(from: Square, to: Square, forbidden: ReadonlySet<Square> = new Set()): Square[] | null {
+  if (from === to) return [from];
+  const prev = new Map<Square, Square | null>([[from, null]]);
+  const queue: Square[] = [from];
+  while (queue.length) {
+    const cur = queue.shift()!;
+    for (const next of singlePieceDestinations({ role: 'knight', color: 'white' }, cur)) {
+      if (prev.has(next) || forbidden.has(next)) continue;
+      prev.set(next, cur);
+      if (next === to) {
+        const path: Square[] = [];
+        for (let s: Square | null = to; s !== null; s = prev.get(s) ?? null) path.unshift(s);
+        return path;
+      }
+      queue.push(next);
+    }
+  }
+  return null;
+}
