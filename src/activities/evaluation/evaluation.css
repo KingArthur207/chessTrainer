@@ -1,0 +1,364 @@
+.ev {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(340px, 30vw, 440px);
+  gap: 24px;
+  padding: 24px 28px 28px;
+}
+
+.ev__board {
+  min-width: 0;
+  min-height: 0;
+}
+
+.ev__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: auto;
+}
+
+.ev__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ev__heading svg {
+  color: #ffb86c;
+}
+
+.ev__lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ev__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ev__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ev__chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.ev__chips .chip {
+  padding: 9px 8px;
+  font-size: 13px;
+}
+
+.ev__chips .chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ev__blurb {
+  color: var(--muted);
+  font-size: 12px;
+  min-height: 2.4em;
+}
+
+.engine-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.engine-status svg {
+  flex: 0 0 auto;
+}
+
+.engine-status.is-ready svg {
+  color: var(--success);
+}
+
+.engine-status.is-missing {
+  border-color: rgba(255, 92, 92, 0.5);
+  color: var(--danger);
+}
+
+.engine-status.is-starting svg {
+  color: var(--muted);
+}
+
+.ev__stats-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.ev__stats-line svg {
+  color: var(--gold);
+}
+
+.ev__stats-line strong {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.ev__spacer {
+  flex: 1;
+}
+
+.ev__hint {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.ev__notice {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 200, 60, 0.12);
+  border: 1px solid rgba(255, 200, 60, 0.4);
+  font-size: 13px;
+}
+
+/* ---- Quiz ------------------------------------------------------------------ */
+.ev__source {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ev__turn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.ev__turn i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ev__scale {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ev__scale button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+  transition: background 100ms ease, border-color 100ms ease;
+}
+
+.ev__scale button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.ev__scale button:disabled {
+  cursor: default;
+}
+
+.ev__scale button .sym {
+  width: 28px;
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.ev__scale button .key {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+
+.ev__scale button.is-guess {
+  border-color: var(--accent);
+  background: rgba(90, 169, 255, 0.16);
+}
+
+.ev__scale button.is-engine {
+  border-color: var(--success);
+  background: rgba(64, 200, 120, 0.16);
+}
+
+.ev__scale button.is-guess.is-engine {
+  box-shadow: 0 0 0 2px rgba(64, 200, 120, 0.4);
+}
+
+.ev__scale button.is-wrong {
+  border-color: var(--danger);
+  background: rgba(255, 92, 92, 0.12);
+}
+
+.ev__analysing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.ev__analysing i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: ev-pulse 1s ease-in-out infinite;
+}
+
+@keyframes ev-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---- Reveal ---------------------------------------------------------------- */
+.ev__reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ev__reveal.is-exact {
+  border-color: rgba(64, 200, 120, 0.6);
+  background: rgba(64, 200, 120, 0.1);
+}
+
+.ev__reveal.is-close {
+  border-color: rgba(255, 200, 60, 0.6);
+  background: rgba(255, 200, 60, 0.08);
+}
+
+.ev__reveal.is-off {
+  border-color: rgba(255, 92, 92, 0.6);
+  background: rgba(255, 92, 92, 0.08);
+}
+
+.ev__reveal-top {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.ev__score {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ev__verdict {
+  font-weight: 700;
+}
+
+.ev__verdict small {
+  display: block;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.ev__bar {
+  height: 14px;
+  border-radius: 999px;
+  background: #1d2129;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.ev__bar > div {
+  height: 100%;
+  background: #e9edf4;
+  transition: width 400ms ease;
+}
+
+.ev__bar::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 92, 92, 0.6);
+}
+
+.ev__line {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.ev__line span {
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .ev {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .ev__panel {
+    max-height: 48vh;
+  }
+}

@@ -68,6 +68,13 @@ export interface BoardProps {
 
 const EMPTY_HIGHLIGHTS = new Map<Key, string>();
 const NO_SHAPES: DrawShape[] = [];
+/**
+ * A drop whose pointer overshoots the board edge by up to this fraction of a
+ * square still lands on the edge square. Drops inside the board are untouched.
+ */
+const EDGE_TOLERANCE = 0.35;
+
+const clamp = (v: number, lo: number, hi: number) => Math.min(Math.max(v, lo), hi);
 
 export const Board = forwardRef<BoardHandle, BoardProps>(function Board(
   {
@@ -175,7 +182,46 @@ export const Board = forwardRef<BoardHandle, BoardProps>(function Board(
     // Dev-only hook so automated tests can drive the board (e.g. enable
     // `trustAllEvents` and dispatch synthetic pointer events).
     if (import.meta.env.DEV) (window as unknown as { __board?: Api }).__board = api;
+
+    // Edge tolerance: chessground resolves a drop from the pointer position,
+    // so overshooting the board by a few pixels cancels the move. These
+    // capture-phase handlers run before chessground's own and pull a near-miss
+    // back onto the edge square. Pointers inside the board are left alone.
+    const nearMiss = (x: number, y: number): [number, number] | null => {
+      const b = el.getBoundingClientRect();
+      if (b.width === 0) return null;
+      const inside = x >= b.left && x < b.right && y >= b.top && y < b.bottom;
+      if (inside) return null;
+      const tol = (b.width / 8) * EDGE_TOLERANCE;
+      if (x < b.left - tol || x >= b.right + tol || y < b.top - tol || y >= b.bottom + tol) return null;
+      // Whole pixels, at least one inside: event coordinates are integers.
+      return [clamp(Math.round(x), Math.ceil(b.left) + 1, Math.floor(b.right) - 2), clamp(Math.round(y), Math.ceil(b.top) + 1, Math.floor(b.bottom) - 2)];
+    };
+    const onMouseUp = (e: MouseEvent) => {
+      // Only real pointer events are adjusted; the substitute below is not.
+      if (!e.isTrusted) return;
+      const cur = api.state.draggable.current;
+      if (!cur || !cur.started) return;
+      const fixed = nearMiss(e.clientX, e.clientY);
+      if (!fixed) return;
+      e.stopImmediatePropagation();
+      document.dispatchEvent(
+        new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: fixed[0], clientY: fixed[1], button: e.button, buttons: 0 }),
+      );
+    };
+    const onTouchEnd = () => {
+      const cur = api.state.draggable.current;
+      if (!cur || !cur.started) return;
+      // touchend carries no position; chessground falls back to the last one.
+      const fixed = nearMiss(cur.pos[0], cur.pos[1]);
+      if (fixed) cur.pos = fixed;
+    };
+    window.addEventListener('mouseup', onMouseUp, true);
+    window.addEventListener('touchend', onTouchEnd, true);
+
     return () => {
+      window.removeEventListener('mouseup', onMouseUp, true);
+      window.removeEventListener('touchend', onTouchEnd, true);
       api.destroy();
       apiRef.current = null;
       if (import.meta.env.DEV) delete (window as unknown as { __board?: Api }).__board;

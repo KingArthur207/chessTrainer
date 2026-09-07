@@ -6,6 +6,7 @@ import {
   extractPositions,
   fetchBatch,
   mergeBatch,
+  migratePool,
   shouldPrefetch,
   summarise,
   takePosition,
@@ -55,6 +56,16 @@ describe('pool bookkeeping', () => {
     expect(merged.positions.length).toBe(batch.length - 3 + next.length);
     expect(merged.seen).toEqual([]);
     expect(merged.consumed).toEqual(['T2', 'T1']);
+  });
+});
+
+describe('migratePool', () => {
+  it('drops placement-only positions from the first pool format', () => {
+    const legacy = { ...emptyPool(), positions: [{ id: 'a', fen: '8/8/8/8/8/8/8/8', pieces: 0, label: 'old' }, { id: 'b', fen: '8/8/8/8/8/8/8/8 w - - 0 1', pieces: 0, label: 'new' }], seen: ['a', 'b'] };
+    const migrated = migratePool(legacy);
+    expect(migrated.positions.map((p) => p.id)).toEqual(['b']);
+    expect(migrated.seen).toEqual(['b']);
+    expect(migratePool(migrated)).toBe(migrated);
   });
 });
 
