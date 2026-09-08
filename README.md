@@ -113,6 +113,16 @@ scheduled with the same spaced repetition as repertoire lines (slips count
 as mistakes, giving up resets). `npm run verify:endgames` re-checks every
 catalogue position's theoretical result with the bundled engine.
 
+### Master Games
+Guess the move. Play one side of a game (the winner, White or Black) from a
+chosen move on; the opponent's replies follow the game. Each guess scores 3
+for the game move, 2 for a move Stockfish rates as good, 1 for a playable
+one and 0 for a mistake, with the game move, your move and the engine's
+choice drawn on the board and their evaluations shown. Games come from the
+five bundled classics, whole games kept from the Lichess pool (up to 400,
+fetched together with the positions), or any PGN you paste. Sessions run up
+to 20 guesses; accuracy and matched-move rates are tracked.
+
 ### Board Memory
 The classic de Groot exercise. A position flashes on the board for 3, 5, 10 or
 20 seconds, disappears, and you rebuild it: click a palette piece and stamp
@@ -168,12 +178,18 @@ marked green, misses red, and candidates the engine did not rank get their
 own quick evaluation so you see what your idea would have cost. Tracks how
 often you find the best move and the average overlap with the top three.
 
+### Engine Analysis
+A plain analysis board. Play moves for either side, step through the
+history with the arrow keys or by clicking moves (a new move from an earlier
+position replaces what followed), flip the board, paste a FEN or a whole
+PGN, copy the FEN or export the PGN. Stockfish analyses the shown position
+continuously with one to three lines; click a line's first move to play it,
+or use "Play best move". The board is kept between visits.
+
 All engine features share one Stockfish process through
 `src/engine/session.ts`: searches are queued, MultiPV lines are assembled,
 and scores are normalised to White's perspective.
 
-The cards for Master Games and Engine Analysis are placeholders for the
-next activities.
 
 ## Project layout
 
@@ -192,6 +208,8 @@ src/
     repertoire-play/ game.ts (book/engine hand-over, undo), review.ts,
                      RepertoirePlay.tsx
     endgames/        catalogue.json, drill.ts (verdicts), EndgameDrills.tsx
+    master-games/    games.ts (sources), scoring.ts, MasterGames.tsx
+    analysis/        AnalysisBoard.tsx (live analysis via engine/useLiveAnalysis)
     board-memory/    positions.ts (sources + scoring), lichessPool.ts (500-game
                      batches, seen tracking, prefetch), stats.ts, BoardMemory.tsx
     visualisation/   exercise.ts (sequences + questions), sources.ts, Visualisation.tsx

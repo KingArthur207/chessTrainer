@@ -9,7 +9,9 @@ import {
   migratePool,
   shouldPrefetch,
   summarise,
+  takeGame,
   takePosition,
+  unplayedGames,
   type FetchDeps,
 } from './lichessPool';
 
@@ -24,6 +26,27 @@ describe('extractPositions', () => {
     expect(new Set(positions.map((p) => p.id)).size).toBe(positions.length);
     expect(positions[0].id).toMatch(/^T1:0:\d+$/);
     expect(positions[0].label).toMatch(/^Morphy – Duke Karl \/ Count Isouard, Test Open 1858, after \d/);
+  });
+});
+
+describe('whole games', () => {
+  it('keeps games with enough moves and hands them out once', () => {
+    const { records } = extractPositions(SAMPLE_PGN, tour);
+    expect(records.map((g) => g.sans.length)).toEqual([33, 45, 47, 82, 87]);
+    expect(records[0]).toMatchObject({ id: 'T1:0', white: 'Morphy, Paul', result: '1-0', event: 'Test Open', year: '1858' });
+    let pool = mergeBatch(emptyPool(), [], ['T1'], 1000, records);
+    expect(unplayedGames(pool)).toHaveLength(5);
+    const seen = new Set<string>();
+    for (let i = 0; i < 5; i++) {
+      const r = takeGame(pool);
+      pool = r.pool;
+      expect(seen.has(r.game!.id)).toBe(false);
+      seen.add(r.game!.id);
+    }
+    expect(takeGame(pool).game).toBeNull();
+    // A new batch drops played games and adds the new ones.
+    const merged = mergeBatch(pool, [], ['T2'], 2000, records.map((g) => ({ ...g, id: g.id.replace('T1', 'T2') })));
+    expect(unplayedGames(merged).map((g) => g.id)).toEqual(records.map((g) => g.id.replace('T1', 'T2')));
   });
 });
 

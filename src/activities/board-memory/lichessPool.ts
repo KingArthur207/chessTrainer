@@ -31,8 +31,26 @@ export interface PoolPosition {
   next?: string[];
 }
 
+/** A whole game kept for guess-the-move. */
+export interface PoolGame {
+  id: string;
+  white: string;
+  black: string;
+  whiteElo?: number;
+  blackElo?: number;
+  event: string;
+  year?: string;
+  result: string;
+  /** SAN moves from the start position. */
+  sans: string[];
+}
+
 export interface LichessPool {
   positions: PoolPosition[];
+  /** Whole games from the fetched tournaments (capped). */
+  games?: PoolGame[];
+  /** Game ids already used by guess-the-move. */
+  playedGames?: string[];
   /** Ids shown by Board Memory. */
   seen: string[];
   /** Ids used by the visualisation drill (tracked separately). */
@@ -69,6 +87,10 @@ export const DEFAULT_TARGET_GAMES = 500;
 const MAX_POSITIONS_PER_GAME = 8;
 const CONTINUATION_PLIES = 10;
 const MIN_PLIES = 24;
+/** Whole games kept per batch and in total (localStorage budget). */
+const MAX_GAMES_PER_BATCH = 200;
+const MAX_GAMES_KEPT = 400;
+const MIN_GAME_PLIES = 30;
 const MAX_PAGES = 12;
 const MAX_CONSUMED = 400;
 const PAUSE_BETWEEN_REQUESTS_MS = 1000;
@@ -81,7 +103,7 @@ const ERROR_BACKOFF_MS = 10 * 60_000;
 // ---- Persistence -------------------------------------------------------------
 
 export function emptyPool(): LichessPool {
-  return { positions: [], seen: [], seenVis: [], consumed: [], fetchedAt: null };
+  return { positions: [], games: [], playedGames: [], seen: [], seenVis: [], consumed: [], fetchedAt: null };
 }
 
 /** Positions from the first pool format held only the placement field; the
@@ -141,20 +163,39 @@ export function takePosition(pool: LichessPool): { pool: LichessPool; position: 
 }
 
 /** Add a fetched batch, dropping positions already seen. */
-export function mergeBatch(pool: LichessPool, batch: PoolPosition[], consumedIds: string[], now = Date.now()): LichessPool {
+export function mergeBatch(pool: LichessPool, batch: PoolPosition[], consumedIds: string[], now = Date.now(), games: PoolGame[] = []): LichessPool {
   const seen = new Set(pool.seen);
   const kept = pool.positions.filter((p) => !seen.has(p.id));
   const known = new Set(kept.map((p) => p.id));
   const fresh = batch.filter((p) => !known.has(p.id));
   const consumed = [...consumedIds, ...pool.consumed.filter((id) => !consumedIds.includes(id))].slice(0, MAX_CONSUMED);
   const keptIds = new Set(kept.map((p) => p.id));
+  const played = new Set(pool.playedGames ?? []);
+  const keptGames = (pool.games ?? []).filter((g) => !played.has(g.id));
+  const knownGames = new Set(keptGames.map((g) => g.id));
+  const freshGames = games.filter((g) => !knownGames.has(g.id));
   return {
     positions: [...kept, ...fresh],
+    games: [...keptGames, ...freshGames].slice(-MAX_GAMES_KEPT),
+    playedGames: [],
     seen: [],
     seenVis: (pool.seenVis ?? []).filter((id) => keptIds.has(id)),
     consumed,
     fetchedAt: now,
   };
+}
+
+/** Games not yet used by guess-the-move. */
+export function unplayedGames(pool: LichessPool): PoolGame[] {
+  const played = new Set(pool.playedGames ?? []);
+  return (pool.games ?? []).filter((g) => !played.has(g.id));
+}
+
+export function takeGame(pool: LichessPool): { pool: LichessPool; game: PoolGame | null } {
+  const candidates = unplayedGames(pool);
+  if (candidates.length === 0) return { pool, game: null };
+  const game = candidates[Math.floor(Math.random() * candidates.length)];
+  return { pool: { ...pool, playedGames: [...(pool.playedGames ?? []), game.id] }, game };
 }
 
 /** Positions with at least `depth` continuation moves not yet used by the visualisation drill. */
@@ -175,9 +216,14 @@ function shortName(name: string): string {
   return name.split(',')[0].trim() || name;
 }
 
-/** Positions from every usable game in a tournament PGN export. */
-export function extractPositions(pgnText: string, tournament: BroadcastTournament, maxPerGame = MAX_POSITIONS_PER_GAME): { games: number; positions: PoolPosition[] } {
+/** Positions (and whole games) from every usable game in a tournament PGN export. */
+export function extractPositions(
+  pgnText: string,
+  tournament: BroadcastTournament,
+  maxPerGame = MAX_POSITIONS_PER_GAME,
+): { games: number; positions: PoolPosition[]; records: PoolGame[] } {
   const positions: PoolPosition[] = [];
+  const records: PoolGame[] = [];
   let games = 0;
   splitPgnDatabase(pgnText).forEach((pgn, gameIndex) => {
     let parsed;
@@ -197,6 +243,19 @@ export function extractPositions(pgnText: string, tournament: BroadcastTournamen
     }
     if (candidates.length === 0) return;
     games++;
+    if (parsed.moves.length >= MIN_GAME_PLIES && records.length < MAX_GAMES_PER_BATCH) {
+      records.push({
+        id: `${tournament.id}:${gameIndex}`,
+        white: meta.white,
+        black: meta.black,
+        whiteElo: meta.whiteElo,
+        blackElo: meta.blackElo,
+        event: tournament.name,
+        year: year || undefined,
+        result: meta.result,
+        sans: parsed.moves.map((m) => m.san),
+      });
+    }
     const take = Math.min(maxPerGame, candidates.length);
     const step = candidates.length / take;
     for (let k = 0; k < take; k++) {
@@ -213,7 +272,7 @@ export function extractPositions(pgnText: string, tournament: BroadcastTournamen
       });
     }
   });
-  return { games, positions };
+  return { games, positions, records };
 }
 
 // ---- Fetching ------------------------------------------------------------------
@@ -241,9 +300,10 @@ export async function fetchBatch(
   targetGames: number,
   onProgress: (p: FetchProgress) => void,
   deps: FetchDeps = realDeps,
-): Promise<{ positions: PoolPosition[]; consumedIds: string[]; games: number }> {
+): Promise<{ positions: PoolPosition[]; consumedIds: string[]; games: number; records: PoolGame[] }> {
   const positions: PoolPosition[] = [];
   const consumedIds: string[] = [];
+  const records: PoolGame[] = [];
   let games = 0;
   let tournaments = 0;
   const report = (current: string, waitingUntil: number | null = null) =>
@@ -293,13 +353,14 @@ export async function fetchBatch(
       tournaments++;
       games += extracted.games;
       positions.push(...extracted.positions);
+      if (records.length < MAX_GAMES_PER_BATCH) records.push(...extracted.records.slice(0, MAX_GAMES_PER_BATCH - records.length));
       report(tour.name);
       await deps.sleep(PAUSE_BETWEEN_REQUESTS_MS);
     }
     page = listing.nextPage;
   }
   if (games === 0 && lastError) throw lastError;
-  return { positions, consumedIds, games };
+  return { positions, consumedIds, games, records };
 }
 
 // ---- Store (singleton the UI subscribes to) ---------------------------------------
@@ -347,6 +408,19 @@ export function nextLichessPosition(): PoolPosition | null {
   return result.position;
 }
 
+/** Take a whole game for guess-the-move (marks it played). */
+export function nextLichessGame(): PoolGame | null {
+  const result = takeGame(pool);
+  pool = result.pool;
+  savePool(pool);
+  publish();
+  return result.game;
+}
+
+export function lichessGamesRemaining(): number {
+  return unplayedGames(pool).length;
+}
+
 /** Take a position with continuation moves for the visualisation drill. */
 export function nextVisualisationPosition(depth: number): PoolPosition | null {
   const result = takeVisualisationPosition(pool, depth);
@@ -381,7 +455,7 @@ export function refreshPool(force = false): Promise<void> {
         publish();
       });
       if (batch.games === 0) throw new Error('Lichess returned no new tournaments to draw from.');
-      pool = mergeBatch(pool, batch.positions, batch.consumedIds);
+      pool = mergeBatch(pool, batch.positions, batch.consumedIds, Date.now(), batch.records);
       savePool(pool);
       status = { state: 'idle' };
     } catch (err) {

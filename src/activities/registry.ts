@@ -1,11 +1,12 @@
 // The single list the home screen and router read. Add new activities here.
-import { Cpu, Library } from 'lucide-react';
+import { analysisBoard } from './analysis';
 import { boardMemory } from './board-memory';
 import { boardVision } from './board-vision';
 import { bulletTrainer } from './bullet-trainer';
 import { candidateDrill } from './candidates';
 import { endgameDrills } from './endgames';
 import { evaluationTrainer } from './evaluation';
+import { masterGames } from './master-games';
 import { openingTrainer } from './opening-trainer';
 import { repertoirePlay } from './repertoire-play';
 import { visualisation } from './visualisation';
@@ -21,26 +22,8 @@ export const activities: ActivityDefinition[] = [
   evaluationTrainer,
   candidateDrill,
   endgameDrills,
-  {
-    id: 'master-games',
-    title: 'Master Games',
-    tagline: 'Replay and guess-the-move through classic games.',
-    description:
-      'Step through annotated master games and test yourself by predicting the next move. Backed by the pluggable game-source layer.',
-    icon: Library,
-    accent: '#e06c9f',
-    status: 'coming-soon',
-  },
-  {
-    id: 'engine-analysis',
-    title: 'Engine Analysis',
-    tagline: 'Analyse positions with Stockfish.',
-    description:
-      'Evaluate positions, find your mistakes and explore lines with Stockfish or any UCI engine via the engine plugin layer.',
-    icon: Cpu,
-    accent: '#5ad1d1',
-    status: 'coming-soon',
-  },
+  masterGames,
+  analysisBoard,
 ];
 
 export function getActivity(id: string | undefined): ActivityDefinition | undefined {

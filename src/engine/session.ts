@@ -34,6 +34,10 @@ export interface AnalyseOptions {
   multiPv?: number;
   /** Limit playing strength to this Elo (Stockfish: 1320–3190). Omit for full strength. */
   elo?: number;
+  /** Search until `stop()`; the promise resolves with what was found. */
+  infinite?: boolean;
+  /** Set `cancelled` before the search starts and it is skipped. */
+  token?: { cancelled: boolean };
   onProgress?: (partial: Evaluation) => void;
 }
 
@@ -123,6 +127,9 @@ export class EngineSession {
     const run = async (): Promise<Evaluation> => {
       const engine = await this.init();
       const whiteToMove = fen.split(' ')[1] !== 'b';
+      if (options.token?.cancelled) {
+        return { fen, depth: 0, lines: [], bestMove: null, cp: null, mate: null, final: true };
+      }
       const multiPv = options.multiPv ?? 1;
       engine.setOption?.('MultiPV', multiPv);
       this.applyStrength(engine, options.elo ?? null);
@@ -142,7 +149,7 @@ export class EngineSession {
           final,
         };
       };
-      const result = await engine.go({ depth: options.depth, moveTimeMs: options.moveTimeMs, multiPv }, (info) => {
+      const result = await engine.go({ depth: options.depth, moveTimeMs: options.moveTimeMs, multiPv, infinite: options.infinite }, (info) => {
         const line = toWhite(info, whiteToMove, depth);
         if (!line) return;
         if (line.multiPv === 1 && info.depth !== undefined) depth = Math.max(depth, info.depth);
