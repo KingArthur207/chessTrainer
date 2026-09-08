@@ -15,8 +15,9 @@
     "typecheck": "tsc -b",
     "test": "vitest run",
     "preview": "vite preview",
-    "test:e2e": "node scripts/e2e-electron.mjs && node scripts/e2e-openings.mjs && node scripts/e2e-memory.mjs && node scripts/e2e-visualisation.mjs && node scripts/e2e-vision.mjs && node scripts/e2e-evaluation.mjs && node scripts/e2e-candidates.mjs && node scripts/e2e-repertoire.mjs",
-    "fetch:stockfish": "node scripts/fetch-stockfish.mjs"
+    "test:e2e": "node scripts/e2e-electron.mjs && node scripts/e2e-openings.mjs && node scripts/e2e-memory.mjs && node scripts/e2e-visualisation.mjs && node scripts/e2e-vision.mjs && node scripts/e2e-evaluation.mjs && node scripts/e2e-candidates.mjs && node scripts/e2e-repertoire.mjs && node scripts/e2e-endgames.mjs",
+    "fetch:stockfish": "node scripts/fetch-stockfish.mjs",
+    "verify:endgames": "node scripts/verify-endgames.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",

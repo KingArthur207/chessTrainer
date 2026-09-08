@@ -100,6 +100,19 @@ learning. Stop at any time (or play to the end) for a review that evaluates
 every position and lists inaccuracies, mistakes and blunders with the
 engine's preferred move.
 
+### Endgame Drills
+Thirteen theoretical endgames in a catalogue (`catalogue.json`): the basic
+mates (queen, rook, two bishops, bishop and knight), king-and-pawn wins and
+draws, Lucena and Philidor, queen vs rook, queen vs pawn on the seventh, and
+the wrong-bishop draw. You play the winning or drawing side against
+Stockfish at full strength. After each of your moves the engine evaluates
+the position: if a win drops to a draw, or a draw to a loss, you get a
+"slipped" warning and can take back. Wins end on checkmate, promotion or a
+bare king as appropriate; draws are held for twenty moves. Every ending is
+scheduled with the same spaced repetition as repertoire lines (slips count
+as mistakes, giving up resets). `npm run verify:endgames` re-checks every
+catalogue position's theoretical result with the bundled engine.
+
 ### Board Memory
 The classic de Groot exercise. A position flashes on the board for 3, 5, 10 or
 20 seconds, disappears, and you rebuild it: click a palette piece and stamp
@@ -159,8 +172,8 @@ All engine features share one Stockfish process through
 `src/engine/session.ts`: searches are queued, MultiPV lines are assembled,
 and scores are normalised to White's perspective.
 
-The cards for Master Games, Engine Analysis and Endgame Drills are
-placeholders for the next activities.
+The cards for Master Games and Engine Analysis are placeholders for the
+next activities.
 
 ## Project layout
 
@@ -176,8 +189,9 @@ src/
     board-vision/    drills.ts (square/colour prompts, knight puzzles), BoardVision.tsx
     opening-trainer/ model.ts (tree), pgn.ts (import/export), srs.ts, store.ts,
                      editor, practice session
-    repertoire-play/ game.ts (book/engine hand-over, undo, game over), review.ts,
+    repertoire-play/ game.ts (book/engine hand-over, undo), review.ts,
                      RepertoirePlay.tsx
+    endgames/        catalogue.json, drill.ts (verdicts), EndgameDrills.tsx
     board-memory/    positions.ts (sources + scoring), lichessPool.ts (500-game
                      batches, seen tracking, prefetch), stats.ts, BoardMemory.tsx
     visualisation/   exercise.ts (sequences + questions), sources.ts, Visualisation.tsx
