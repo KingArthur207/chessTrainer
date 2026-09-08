@@ -1,0 +1,148 @@
+[
+  {
+    "id": "kq-vs-k",
+    "category": "Basic mates",
+    "name": "King and queen vs king",
+    "fen": "8/8/8/4k3/8/8/8/3QK3 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "mate",
+    "hint": "Use the queen a knight's move away from the king to shrink the box, bring your king up, and mate on the edge. Watch for stalemate.",
+    "difficulty": 1
+  },
+  {
+    "id": "kr-vs-k",
+    "category": "Basic mates",
+    "name": "King and rook vs king",
+    "fen": "8/8/8/4k3/8/8/8/R3K3 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "mate",
+    "hint": "Cut the king off with the rook, take the opposition with your king, then check to push it back a rank. Repeat to the edge.",
+    "difficulty": 1
+  },
+  {
+    "id": "kbb-vs-k",
+    "category": "Basic mates",
+    "name": "Two bishops vs king",
+    "fen": "8/8/8/4k3/8/8/8/2BBK3 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "mate",
+    "hint": "The bishops side by side form a wall on two diagonals. Drive the king to the edge, then into a corner, and mate with the king's help.",
+    "difficulty": 2
+  },
+  {
+    "id": "kbn-vs-k",
+    "category": "Basic mates",
+    "name": "Bishop and knight vs king",
+    "fen": "8/8/8/4k3/8/8/8/2BNK3 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "mate",
+    "hint": "Mate only happens in a corner of the bishop's colour. Drive the king to the edge, then along it with the W manoeuvre of the knight. Stockfish's score here is modest until the king is near the right corner; trust the technique.",
+    "difficulty": 4,
+    "winCp": 80
+  },
+  {
+    "id": "rook-finish",
+    "category": "Basic mates",
+    "name": "Rook mate: the finish",
+    "fen": "6k1/8/6K1/8/8/8/8/R7 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "mate",
+    "hint": "The kings are in opposition and the back rank is open: one rook move ends it.",
+    "difficulty": 1
+  },
+  {
+    "id": "kp-king-sixth",
+    "category": "Pawn endgames",
+    "name": "King on the sixth rank",
+    "fen": "4k3/8/4K3/4P3/8/8/8/8 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "promote",
+    "hint": "A king on the sixth rank in front of its pawn wins whoever is to move: step to the side the black king does not cover, then push.",
+    "difficulty": 1
+  },
+  {
+    "id": "kp-opposition-win",
+    "category": "Pawn endgames",
+    "name": "King and pawn: win with the opposition",
+    "fen": "8/8/4k3/8/3K4/4P3/8/8 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "promote",
+    "hint": "Step in front of the black king to take the opposition, then outflank when it steps aside. Never push the pawn before the king has cleared the way.",
+    "difficulty": 2
+  },
+  {
+    "id": "kp-opposition-draw",
+    "category": "Pawn endgames",
+    "name": "King and pawn: hold the draw",
+    "fen": "8/8/8/8/4k3/8/4P3/4K3 w - - 0 1",
+    "side": "black",
+    "goal": "draw",
+    "success": "hold",
+    "hint": "Stay in front of the pawn and take the opposition whenever the white king steps up. Never leave the pawn's file unless the king does.",
+    "difficulty": 2
+  },
+  {
+    "id": "lucena",
+    "category": "Rook endgames",
+    "name": "Lucena position",
+    "fen": "1K1k4/1P6/8/8/8/8/r7/2R5 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "promote",
+    "hint": "Build the bridge: put the rook on the fourth rank, walk the king out, and block the checks with the rook when the king reaches the fifth.",
+    "difficulty": 3
+  },
+  {
+    "id": "philidor",
+    "category": "Rook endgames",
+    "name": "Philidor position",
+    "fen": "4k3/7R/r7/4K3/4P3/8/8/8 b - - 0 1",
+    "side": "black",
+    "goal": "draw",
+    "success": "hold",
+    "hint": "Keep the rook on the sixth rank so the king cannot cross. Only when the pawn advances to the sixth do you drop the rook to the first rank and check from behind.",
+    "difficulty": 3
+  },
+  {
+    "id": "q-vs-r",
+    "category": "Queen endgames",
+    "name": "Queen vs rook",
+    "fen": "3k4/8/1r6/8/8/8/8/2Q1K3 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "bare-king",
+    "hint": "Approach with the king, keep the rook tied to its king, and look for forks and skewers once the defending king is pushed to the edge. Stockfish rates this only around +2.5 without tablebases; it is a forced win.",
+    "difficulty": 5,
+    "winCp": 120
+  },
+  {
+    "id": "q-vs-pawn7",
+    "category": "Queen endgames",
+    "name": "Queen vs pawn on the seventh",
+    "fen": "7K/6Q1/8/8/8/8/2kp4/8 w - - 0 1",
+    "side": "white",
+    "goal": "win",
+    "success": "bare-king",
+    "hint": "Check and pin until the king is forced in front of its own pawn, then use that tempo to bring your king one step closer. Repeat.",
+    "difficulty": 3
+  },
+  {
+    "id": "wrong-bishop",
+    "category": "Minor pieces",
+    "name": "Wrong bishop and rook pawn",
+    "fen": "7k/8/8/8/8/8/7P/5BK1 w - - 0 1",
+    "side": "black",
+    "goal": "draw",
+    "success": "hold",
+    "hint": "The bishop does not control the queening square, so the corner is safe. Just stay in or next to h8 and shuffle. (The engine still likes White a little here; the position is a known draw.)",
+    "difficulty": 1,
+    "drawCp": 150
+  }
+]

@@ -121,3 +121,25 @@ export function numberedLine(fen: string, sans: string[]): string {
   });
   return parts.join(' ');
 }
+
+export type GameResult = '1-0' | '0-1' | '1/2-1/2';
+
+/** Repetition key for a FEN: placement, side, castling, en passant. */
+export function repetitionKey(fen: string): string {
+  return fen.split(' ').slice(0, 4).join(' ');
+}
+
+/**
+ * Whether the game is over in `fen`. `seen` holds repetition keys of every
+ * position so far (including this one) for the threefold rule.
+ */
+export function gameOver(fen: string, seen: string[]): { result: GameResult; reason: string } | null {
+  const chess = new Chess(fen);
+  if (chess.isCheckmate()) return { result: chess.turn() === 'w' ? '0-1' : '1-0', reason: 'Checkmate' };
+  if (chess.isStalemate()) return { result: '1/2-1/2', reason: 'Stalemate' };
+  if (chess.isInsufficientMaterial()) return { result: '1/2-1/2', reason: 'Insufficient material' };
+  if (Number(fen.split(' ')[4]) >= 100) return { result: '1/2-1/2', reason: 'Fifty-move rule' };
+  const current = repetitionKey(fen);
+  if (seen.filter((k) => k === current).length >= 3) return { result: '1/2-1/2', reason: 'Threefold repetition' };
+  return null;
+}

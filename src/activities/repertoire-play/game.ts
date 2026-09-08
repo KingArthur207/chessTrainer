@@ -1,10 +1,12 @@
 // Game logic for playing out a repertoire: book replies while the position
 // is in the tree, then the engine takes over. Pure functions; the component
 // owns timing and engine calls.
-import { Chess } from 'chess.js';
 import { childByUci, leafLines, type Opening, type Side, type TreeNode } from '@/activities/opening-trainer/model';
-import { applyMove, turnOf } from '@/chess/position';
+import { applyMove, gameOver, repetitionKey, turnOf, type GameResult } from '@/chess/position';
 import type { Key } from 'chessground/types';
+
+export { gameOver };
+export type { GameResult };
 
 export type StartMode = 'start' | 'leaf' | 'pick';
 
@@ -42,8 +44,6 @@ export interface PlayedMove {
   /** Set on a user move that left the book: the SAN the book expected. */
   bookMove?: string;
 }
-
-export type GameResult = '1-0' | '0-1' | '1/2-1/2';
 
 export interface GameState {
   userColor: Side;
@@ -95,19 +95,7 @@ export function bookReplies(state: GameState): TreeNode[] {
 
 /** All positions seen so far (for repetition), oldest first. */
 function positionKeys(state: GameState): string[] {
-  const key = (fen: string) => fen.split(' ').slice(0, 4).join(' ');
-  return [key(state.startFen), ...state.moves.map((m) => key(m.fenAfter))];
-}
-
-export function gameOver(fen: string, seen: string[]): { result: GameResult; reason: string } | null {
-  const chess = new Chess(fen);
-  if (chess.isCheckmate()) return { result: chess.turn() === 'w' ? '0-1' : '1-0', reason: 'Checkmate' };
-  if (chess.isStalemate()) return { result: '1/2-1/2', reason: 'Stalemate' };
-  if (chess.isInsufficientMaterial()) return { result: '1/2-1/2', reason: 'Insufficient material' };
-  if (Number(fen.split(' ')[4]) >= 100) return { result: '1/2-1/2', reason: 'Fifty-move rule' };
-  const current = fen.split(' ').slice(0, 4).join(' ');
-  if (seen.filter((k) => k === current).length >= 3) return { result: '1/2-1/2', reason: 'Threefold repetition' };
-  return null;
+  return [repetitionKey(state.startFen), ...state.moves.map((m) => repetitionKey(m.fenAfter))];
 }
 
 /** Apply a move (by anyone). Returns null if illegal. */

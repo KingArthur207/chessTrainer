@@ -1,9 +1,10 @@
 // The single list the home screen and router read. Add new activities here.
-import { Cpu, Crown, Library } from 'lucide-react';
+import { Cpu, Library } from 'lucide-react';
 import { boardMemory } from './board-memory';
 import { boardVision } from './board-vision';
 import { bulletTrainer } from './bullet-trainer';
 import { candidateDrill } from './candidates';
+import { endgameDrills } from './endgames';
 import { evaluationTrainer } from './evaluation';
 import { openingTrainer } from './opening-trainer';
 import { repertoirePlay } from './repertoire-play';
@@ -19,6 +20,7 @@ export const activities: ActivityDefinition[] = [
   visualisation,
   evaluationTrainer,
   candidateDrill,
+  endgameDrills,
   {
     id: 'master-games',
     title: 'Master Games',
@@ -37,15 +39,6 @@ export const activities: ActivityDefinition[] = [
       'Evaluate positions, find your mistakes and explore lines with Stockfish or any UCI engine via the engine plugin layer.',
     icon: Cpu,
     accent: '#5ad1d1',
-    status: 'coming-soon',
-  },
-  {
-    id: 'endgame-drills',
-    title: 'Endgame Drills',
-    tagline: 'Convert winning endgames against the engine.',
-    description: 'Practise fundamental endgames and technique against an engine opponent.',
-    icon: Crown,
-    accent: '#7ee787',
     status: 'coming-soon',
   },
 ];
