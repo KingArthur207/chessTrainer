@@ -6,6 +6,7 @@ import { bulletTrainer } from './bullet-trainer';
 import { candidateDrill } from './candidates';
 import { evaluationTrainer } from './evaluation';
 import { openingTrainer } from './opening-trainer';
+import { repertoirePlay } from './repertoire-play';
 import { visualisation } from './visualisation';
 import type { ActivityDefinition } from './types';
 
@@ -13,6 +14,7 @@ export const activities: ActivityDefinition[] = [
   bulletTrainer,
   boardVision,
   openingTrainer,
+  repertoirePlay,
   boardMemory,
   visualisation,
   evaluationTrainer,

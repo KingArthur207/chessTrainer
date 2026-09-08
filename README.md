@@ -89,6 +89,17 @@ A Chessable-style repertoire trainer.
   (1, 3, 7, 14, 30, 60, 120, 240 days; a failed line returns within the
   session) and the library offers "due" or "all" lines.
 
+### Play the Opening
+Play your repertoire out against Stockfish. Start where a random line ends,
+from move one (the opponent follows your book while in theory), or from any
+move you pick in the tree. Once either side leaves the book, the engine takes
+over at a chosen strength (Stockfish's Elo limiter: 1350 to 2500, or full).
+Book moves are shown in gold with a "book ends" marker and deviations note
+the move the book expected. Book hints and take-backs are allowed while
+learning. Stop at any time (or play to the end) for a review that evaluates
+every position and lists inaccuracies, mistakes and blunders with the
+engine's preferred move.
+
 ### Board Memory
 The classic de Groot exercise. A position flashes on the board for 3, 5, 10 or
 20 seconds, disappears, and you rebuild it: click a palette piece and stamp
@@ -165,6 +176,8 @@ src/
     board-vision/    drills.ts (square/colour prompts, knight puzzles), BoardVision.tsx
     opening-trainer/ model.ts (tree), pgn.ts (import/export), srs.ts, store.ts,
                      editor, practice session
+    repertoire-play/ game.ts (book/engine hand-over, undo, game over), review.ts,
+                     RepertoirePlay.tsx
     board-memory/    positions.ts (sources + scoring), lichessPool.ts (500-game
                      batches, seen tracking, prefetch), stats.ts, BoardMemory.tsx
     visualisation/   exercise.ts (sequences + questions), sources.ts, Visualisation.tsx
