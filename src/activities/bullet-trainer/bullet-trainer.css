@@ -70,14 +70,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.bullet__best svg {
-  color: var(--gold);
 }
 
 .bullet__best strong {
@@ -138,7 +134,7 @@
 .bullet__progress > div {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), var(--success));
+  background: var(--accent);
   transition: width 60ms linear;
 }
 
@@ -150,27 +146,21 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: rgba(64, 200, 120, 0.08);
-  border: 1px solid rgba(64, 200, 120, 0.35);
+  padding: 12px 14px;
+  border-radius: var(--radius-lg);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
 }
 
 .bullet__task-glyph {
-  font-size: 40px;
-  line-height: 1;
   width: 48px;
-  text-align: center;
-}
-
-.bullet__task-glyph.is-white {
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-}
-
-.bullet__task-glyph.is-black {
-  color: #111;
-  text-shadow: 0 0 1px #fff, 0 0 2px #fff;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  font-size: 16px;
 }
 
 .bullet__task-text {
@@ -190,7 +180,7 @@
 
 .bullet__task-text strong em {
   font-style: normal;
-  color: var(--success);
+  color: var(--accent);
   font-weight: 800;
 }
 
@@ -207,8 +197,8 @@
   display: grid;
   place-items: center;
   background: rgba(8, 10, 14, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   animation: fade-in 180ms ease-out;
   z-index: 10;
 }
@@ -216,7 +206,7 @@
 .results {
   width: min(520px, calc(100vw - 48px));
   padding: 32px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   background: var(--panel);
   border: 1px solid var(--border);
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
@@ -254,7 +244,7 @@
   margin-top: 12px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(242, 201, 76, 0.15);
+  background: var(--accent-soft);
   color: var(--gold);
   font-weight: 700;
   font-size: 13px;

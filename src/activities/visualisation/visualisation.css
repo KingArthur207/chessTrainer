@@ -33,10 +33,6 @@
   letter-spacing: -0.01em;
 }
 
-.vis__heading svg {
-  color: #f78c6c;
-}
-
 .vis__lede {
   margin: 0;
   color: var(--muted);
@@ -85,14 +81,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.vis__stats-line svg {
-  color: var(--gold);
 }
 
 .vis__stats-line strong {
@@ -112,9 +104,9 @@
 
 .vis__notice {
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 200, 60, 0.12);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-line);
   font-size: 13px;
 }
 
@@ -127,10 +119,10 @@
 /* ---- Quiz ---------------------------------------------------------------- */
 .vis__moves {
   padding: 14px 16px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(247, 140, 108, 0.35);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
   font-size: 18px;
   font-weight: 600;
   line-height: 1.6;
@@ -150,7 +142,7 @@
 .vis__timer > div {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, #f78c6c, var(--accent));
+  background: var(--accent);
   animation: vis-shrink linear forwards;
 }
 
@@ -168,9 +160,9 @@
   flex-direction: column;
   gap: 10px;
   padding: 14px;
-  border-radius: 12px;
-  background: rgba(90, 169, 255, 0.08);
-  border: 1px solid rgba(90, 169, 255, 0.4);
+  border-radius: var(--radius-lg);
+  background: var(--info-soft);
+  border: 1px solid var(--info-line);
 }
 
 .vis__question-meta {
@@ -205,19 +197,19 @@
 
 .vis__feedback {
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .vis__feedback.is-correct {
-  background: rgba(64, 200, 120, 0.14);
-  border: 1px solid rgba(64, 200, 120, 0.6);
+  background: var(--success-soft);
+  border: 1px solid var(--success-line);
 }
 
 .vis__feedback.is-wrong {
-  background: rgba(255, 92, 92, 0.12);
-  border: 1px solid rgba(255, 92, 92, 0.6);
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-line);
 }
 
 /* ---- Reveal -------------------------------------------------------------- */
@@ -250,8 +242,8 @@
   gap: 10px;
   align-items: flex-start;
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 13px;
   line-height: 1.4;

@@ -33,10 +33,6 @@
   letter-spacing: -0.01em;
 }
 
-.cm__heading svg {
-  color: #a6e3a1;
-}
-
 .cm__lede {
   margin: 0;
   color: var(--muted);
@@ -85,14 +81,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.cm__stats-line svg {
-  color: var(--gold);
 }
 
 .cm__stats-line strong {
@@ -113,9 +105,9 @@
 
 .cm__notice {
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 200, 60, 0.12);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-line);
   font-size: 13px;
 }
 
@@ -131,7 +123,7 @@
   gap: 8px;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 12px;
   font-weight: 600;
@@ -158,7 +150,7 @@
   gap: 8px;
   min-height: 48px;
   padding: 8px 10px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px dashed var(--border);
   color: var(--muted);
   font-size: 13px;
@@ -166,19 +158,19 @@
 
 .cm__slot.is-filled {
   border-style: solid;
-  border-color: rgba(90, 169, 255, 0.6);
-  background: rgba(90, 169, 255, 0.12);
+  border-color: var(--info-line);
+  background: var(--info-soft);
   color: var(--text);
 }
 
 .cm__slot.is-hit {
-  border-color: rgba(64, 200, 120, 0.7);
-  background: rgba(64, 200, 120, 0.14);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .cm__slot.is-miss {
-  border-color: rgba(255, 92, 92, 0.6);
-  background: rgba(255, 92, 92, 0.1);
+  border-color: var(--danger-line);
+  background: var(--danger-soft);
 }
 
 .cm__slot .san {
@@ -237,26 +229,26 @@
 /* ---- Reveal ---------------------------------------------------------------- */
 .cm__verdict {
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .cm__verdict.is-great {
-  border-color: rgba(64, 200, 120, 0.6);
-  background: rgba(64, 200, 120, 0.12);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .cm__verdict.is-ok {
-  border-color: rgba(255, 200, 60, 0.6);
-  background: rgba(255, 200, 60, 0.08);
+  border-color: var(--warn-line);
+  background: var(--warn-soft);
 }
 
 .cm__verdict.is-poor {
-  border-color: rgba(255, 92, 92, 0.6);
-  background: rgba(255, 92, 92, 0.08);
+  border-color: var(--danger-line);
+  background: var(--danger-soft);
 }
 
 .cm__engine {
@@ -274,15 +266,15 @@
   align-items: center;
   gap: 8px;
   padding: 8px 10px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 13px;
 }
 
 .cm__engine li.is-yours {
-  border-color: rgba(64, 200, 120, 0.6);
-  background: rgba(64, 200, 120, 0.1);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .cm__engine .rank {
@@ -297,7 +289,7 @@
 }
 
 .cm__engine li:first-child .rank {
-  background: rgba(64, 200, 120, 0.3);
+  background: var(--success-line);
 }
 
 .cm__engine .san {
@@ -311,7 +303,7 @@
 }
 
 .cm__engine .line {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
   overflow: hidden;

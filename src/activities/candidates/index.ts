@@ -7,6 +7,7 @@ export const candidateDrill: ActivityDefinition = {
   id: 'candidates',
   title: 'Candidate Moves',
   tagline: 'Name three candidates, then see Stockfish\'s top three.',
+  category: 'Judgement',
   description: 'Enumerate the moves worth considering before looking for the best one, then compare with the engine\'s MultiPV ranking.',
   icon: ListOrdered,
   accent: '#a6e3a1',

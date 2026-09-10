@@ -7,6 +7,7 @@ export const evaluationTrainer: ActivityDefinition = {
   id: 'evaluation',
   title: 'Evaluation Trainer',
   tagline: 'Who is better, and by how much? Then check with Stockfish.',
+  category: 'Judgement',
   description: 'Assess positions on a seven-step scale and compare with the engine\'s score, best move and main line.',
   icon: Gauge,
   accent: '#ffb86c',

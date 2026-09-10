@@ -3,6 +3,9 @@ import type { LucideIcon } from 'lucide-react';
 
 export type ActivityStatus = 'available' | 'coming-soon';
 
+/** Home-screen grouping. */
+export type ActivityCategory = 'Vision and reflexes' | 'Openings' | 'Calculation and memory' | 'Judgement' | 'Technique and study';
+
 /**
  * Everything the home screen and router need to know about an activity.
  * To add a new activity: create a folder under src/activities, export a
@@ -14,6 +17,7 @@ export interface ActivityDefinition {
   title: string;
   /** One-liner shown on the home card. */
   tagline: string;
+  category: ActivityCategory;
   /** A sentence or two of detail. */
   description: string;
   icon: LucideIcon;

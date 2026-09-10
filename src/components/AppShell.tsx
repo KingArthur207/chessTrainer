@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, Maximize2, Minimize2 } from 'lucide-react';
+import { KNIGHT_MARK } from './knightMark';
 import { isFullscreen, isMacElectron, onFullscreenChange, toggleFullscreen } from '@/lib/platform';
 import './app-shell.css';
 
@@ -37,8 +38,10 @@ export function AppShell({ title, backTo, actions, children }: AppShellProps) {
           </Link>
         )}
         <Link to="/" className="shell__brand">
-          <span className="shell__logo">♞</span>
-          <span>Chess Trainer</span>
+          <span className="shell__logo" aria-hidden="true">
+            <img src={KNIGHT_MARK} alt="" width={18} height={18} />
+          </span>
+          <span className="shell__wordmark">Chess Trainer</span>
         </Link>
         {title && (
           <>

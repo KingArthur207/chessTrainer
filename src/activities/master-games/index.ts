@@ -7,6 +7,7 @@ export const masterGames: ActivityDefinition = {
   id: 'master-games',
   title: 'Master Games',
   tagline: 'Guess the move through classic and master games.',
+  category: 'Technique and study',
   description: 'Play one side of a game and guess every move; score against the actual move and the engine\'s evaluation.',
   icon: Library,
   accent: '#e06c9f',

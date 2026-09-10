@@ -33,10 +33,6 @@
   letter-spacing: -0.01em;
 }
 
-.bm__heading svg {
-  color: #c792ea;
-}
-
 .bm__lede {
   margin: 0;
   color: var(--muted);
@@ -85,14 +81,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.bm__stats-line svg {
-  color: var(--gold);
 }
 
 .bm__stats-line strong {
@@ -112,9 +104,9 @@
 
 .bm__notice {
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 200, 60, 0.12);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-line);
   font-size: 13px;
 }
 
@@ -124,8 +116,8 @@
   flex-direction: column;
   gap: 8px;
   padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
 }
 
@@ -162,7 +154,7 @@
 
 .bm__pool-bar > div {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--success));
+  background: var(--accent);
   transition: width 300ms ease;
 }
 
@@ -184,20 +176,20 @@
 /* ---- Memorise ------------------------------------------------------------ */
 .bm__status {
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-weight: 600;
 }
 
 .bm__status.is-flash {
-  border-color: rgba(199, 146, 234, 0.6);
-  background: rgba(199, 146, 234, 0.12);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
 }
 
 .bm__status.is-result {
-  border-color: rgba(64, 200, 120, 0.6);
-  background: rgba(64, 200, 120, 0.12);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .bm__timer {
@@ -210,7 +202,7 @@
 .bm__timer > div {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, #c792ea, var(--accent));
+  background: var(--accent);
   animation-name: bm-shrink;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -228,7 +220,7 @@
 .board-frame.is-flash .cg-wrap {
   box-shadow:
     0 30px 60px -20px rgba(0, 0, 0, 0.7),
-    0 0 0 3px rgba(199, 146, 234, 0.8);
+    0 0 0 3px var(--accent-line);
 }
 
 /* ---- Rebuild ------------------------------------------------------------- */
@@ -245,7 +237,7 @@
 
 .bm__tools .btn.is-active {
   border-color: var(--accent);
-  background: rgba(90, 169, 255, 0.16);
+  background: var(--accent-soft);
 }
 
 .bm__count {

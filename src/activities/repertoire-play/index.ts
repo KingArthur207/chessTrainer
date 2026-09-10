@@ -7,6 +7,7 @@ export const repertoirePlay: ActivityDefinition = {
   id: 'repertoire-play',
   title: 'Play the Opening',
   tagline: 'Play your repertoire out against Stockfish, past the end of the book.',
+  category: 'Openings',
   description: 'Start anywhere in your opening tree; the opponent follows your book while in theory, then the engine takes over at a strength you choose. Review grades every move.',
   icon: Swords,
   accent: '#f2a65a',

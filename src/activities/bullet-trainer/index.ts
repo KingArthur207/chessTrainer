@@ -7,6 +7,7 @@ export const bulletTrainer: ActivityDefinition = {
   id: 'bullet-trainer',
   title: 'Bullet Trainer',
   tagline: 'Move pieces to their targets as fast as you can.',
+  category: 'Vision and reflexes',
   description:
     'A timed reflex drill. Pieces appear one at a time with a highlighted destination; move each one there before the clock runs out.',
   icon: Zap,
