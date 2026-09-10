@@ -10,10 +10,10 @@
 }
 
 .board-frame .cg-wrap {
-  border-radius: 6px;
+  border-radius: 4px;
   box-shadow:
     0 30px 60px -20px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
+    0 0 0 1px var(--panel-2);
   overflow: hidden;
   transition: box-shadow 150ms ease;
 }
@@ -21,7 +21,7 @@
 .board-frame.is-miss .cg-wrap {
   box-shadow:
     0 30px 60px -20px rgba(0, 0, 0, 0.7),
-    0 0 0 3px rgba(255, 92, 92, 0.85);
+    0 0 0 3px var(--danger-line);
 }
 
 .board-frame.is-locked .cg-wrap {
@@ -30,7 +30,7 @@
 
 /* Custom highlight classes (chessground `highlight.custom`). */
 cg-board square.target {
-  background: radial-gradient(circle, rgba(64, 200, 120, 0.55) 0%, rgba(64, 200, 120, 0.45) 55%, rgba(64, 200, 120, 0.15) 100%);
+  background: radial-gradient(circle, var(--success-line) 0%, var(--success-line) 55%, var(--success-soft) 100%);
   box-shadow: inset 0 0 0 3px rgba(40, 190, 110, 0.95);
   animation: target-pulse 900ms ease-in-out infinite;
 }
@@ -85,26 +85,26 @@ cg-board square.origin {
 }
 
 cg-board square.hint {
-  background: radial-gradient(circle, rgba(255, 200, 60, 0.6) 0%, rgba(255, 200, 60, 0.35) 70%);
+  background: radial-gradient(circle, var(--warn-line) 0%, rgba(255, 200, 60, 0.35) 70%);
   box-shadow: inset 0 0 0 3px rgba(255, 190, 40, 0.9);
 }
 
 /* Board Memory result marks. */
 cg-board square.correct {
-  background: rgba(64, 200, 120, 0.45);
+  background: var(--success-line);
 }
 
 cg-board square.missing {
-  background: rgba(255, 200, 60, 0.5);
+  background: var(--warn-line);
   box-shadow: inset 0 0 0 3px rgba(255, 190, 40, 0.9);
 }
 
 cg-board square.wrong {
-  background: rgba(255, 92, 92, 0.55);
-  box-shadow: inset 0 0 0 3px rgba(255, 92, 92, 0.9);
+  background: var(--danger-line);
+  box-shadow: inset 0 0 0 3px var(--danger-line);
 }
 
 /* Knight-route drill: squares the pawns attack. */
 cg-board square.forbidden {
-  background: radial-gradient(circle, rgba(255, 92, 92, 0.75) 0 18%, transparent 20%);
+  background: radial-gradient(circle, var(--danger-line) 0 18%, transparent 20%);
 }

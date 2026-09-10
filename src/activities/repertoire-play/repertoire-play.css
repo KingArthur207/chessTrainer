@@ -33,10 +33,6 @@
   letter-spacing: -0.01em;
 }
 
-.rp__heading svg {
-  color: #f2a65a;
-}
-
 .rp__lede {
   margin: 0;
   color: var(--muted);
@@ -61,9 +57,9 @@
 .rp__select {
   width: 100%;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--panel-2);
   color: var(--text);
   font: inherit;
   font-weight: 600;
@@ -100,14 +96,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.rp__stats-line svg {
-  color: var(--gold);
 }
 
 .rp__stats-line strong {
@@ -128,9 +120,9 @@
 
 .rp__notice {
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 200, 60, 0.12);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-line);
   font-size: 13px;
 }
 
@@ -154,21 +146,21 @@
 
 .rp__status {
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .rp__status.is-book {
-  border-color: rgba(207, 174, 110, 0.5);
-  background: rgba(207, 174, 110, 0.1);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
 }
 
 .rp__status.is-user {
-  border-color: rgba(90, 169, 255, 0.5);
-  background: rgba(90, 169, 255, 0.1);
+  border-color: var(--info-line);
+  background: var(--info-soft);
 }
 
 .rp__status.is-thinking {
@@ -176,8 +168,8 @@
 }
 
 .rp__status.is-over {
-  border-color: rgba(64, 200, 120, 0.6);
-  background: rgba(64, 200, 120, 0.12);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .rp__context {
@@ -192,8 +184,8 @@
   max-height: 260px;
   overflow: auto;
   padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
   border: 1px solid var(--border);
   font-size: 14px;
   line-height: 1.9;
@@ -212,7 +204,7 @@
 }
 
 .rp__move.is-book {
-  color: #e6c98a;
+  color: var(--accent);
 }
 
 .rp__move.is-last {
@@ -279,7 +271,7 @@
 
 .rp__progress > div {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--success));
+  background: var(--accent);
   transition: width 200ms ease;
 }
 
@@ -298,25 +290,25 @@
   gap: 10px;
   align-items: center;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-size: 13px;
 }
 
 .rp__errors li.is-blunder {
-  border-color: rgba(255, 92, 92, 0.6);
-  background: rgba(255, 92, 92, 0.1);
+  border-color: var(--danger-line);
+  background: var(--danger-soft);
 }
 
 .rp__errors li.is-mistake {
-  border-color: rgba(255, 150, 60, 0.6);
-  background: rgba(255, 150, 60, 0.1);
+  border-color: var(--warn-line);
+  background: var(--warn-soft);
 }
 
 .rp__errors li.is-inaccuracy {
-  border-color: rgba(255, 200, 60, 0.5);
-  background: rgba(255, 200, 60, 0.08);
+  border-color: var(--warn-line);
+  background: var(--warn-soft);
 }
 
 .rp__errors .move {

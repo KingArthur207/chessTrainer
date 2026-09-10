@@ -5,6 +5,7 @@ import { Chess } from 'chess.js';
 import { ChevronLeft, Eye, Library, Play, RotateCcw, Settings2, Square, Trophy } from 'lucide-react';
 import { Board, type DrawShape, type Key } from '@/board/Board';
 import { EngineStatus } from '@/components/EngineStatus';
+import { PieceIcon } from '@/components/PieceIcon';
 import { getSnapshot, isOnline, refreshPool, subscribe } from '@/activities/board-memory/lichessPool';
 import { LichessPoolPanel } from '@/activities/board-memory/LichessPoolPanel';
 import { applyMove, applySan, inCheck, legalDests, numberedLine, START_FEN, turnOf, uciLineToSan } from '@/chess/position';
@@ -387,7 +388,7 @@ export default function MasterGames() {
                 <div className="mg__chips mg__sides" role="radiogroup" aria-label="Side">
                   {(['winner', 'white', 'black'] as SideChoice[]).map((c) => (
                     <button key={c} role="radio" aria-checked={c === sideChoice} className={`chip ${c === sideChoice ? 'is-active' : ''}`} onClick={() => setSideChoice(c)}>
-                      {c === 'winner' ? 'Winner' : c === 'white' ? '♔ White' : '♚ Black'}
+                      {c === 'winner' ? 'Winner' : <><PieceIcon color={c} role="king" /> {c === 'white' ? 'White' : 'Black'}</>}
                     </button>
                   ))}
                 </div>

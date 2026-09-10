@@ -1,17 +1,41 @@
+/* =============================================================================
+   Chess Trainer design system
+   One palette, one accent, one type scale. Activities compose these classes
+   and the tokens; they do not introduce colours of their own.
+   ========================================================================== */
 :root {
-  --bg: #0f1115;
-  --bg-elev: #141821;
-  --panel: #171b25;
-  --border: rgba(255, 255, 255, 0.09);
-  --text: #e9edf4;
-  --muted: #98a2b3;
-  --accent: #5aa9ff;
-  --accent-strong: #3b8ef0;
-  --success: #40c878;
-  --danger: #ff5c5c;
-  --gold: #f2c94c;
-  --radius: 12px;
-  --radius-lg: 16px;
+  --bg: #121315;
+  --bg-elev: #17181b;
+  --panel: #1b1c20;
+  --panel-2: #212328;
+  --border: #2b2d33;
+  --border-strong: #3b3e46;
+  --text: #ebe8e1;
+  --muted: #9d9a92;
+  --faint: #6f6d67;
+  --accent: #c9a24a;
+  --accent-hover: #d9b45f;
+  --accent-soft: rgba(201, 162, 74, 0.14);
+  --accent-line: rgba(201, 162, 74, 0.55);
+  --on-accent: #17140d;
+  --success: #62b27c;
+  --success-soft: rgba(98, 178, 124, 0.14);
+  --success-line: rgba(98, 178, 124, 0.55);
+  --danger: #d9655d;
+  --danger-soft: rgba(217, 101, 93, 0.14);
+  --danger-line: rgba(217, 101, 93, 0.55);
+  --warn: #d9a441;
+  --warn-soft: rgba(217, 164, 65, 0.14);
+  --warn-line: rgba(217, 164, 65, 0.55);
+  --gold: var(--accent);
+  --info: #7ea6d6;
+  --info-soft: rgba(126, 166, 214, 0.14);
+  --info-line: rgba(126, 166, 214, 0.5);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
   color-scheme: dark;
 }
 
@@ -29,19 +53,21 @@ body,
 body {
   background: var(--bg);
   color: var(--text);
-  font-family:
-    'Inter Variable',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 button {
@@ -53,76 +79,125 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* ---- Buttons --------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
-  border-radius: 10px;
+  padding: 9px 14px;
+  border-radius: var(--radius);
   font-weight: 600;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  font-size: 13.5px;
+  line-height: 1.2;
+  border: 1px solid var(--border-strong);
+  background: var(--panel-2);
+  color: var(--text);
+  text-decoration: none;
   transition:
     background 120ms ease,
-    transform 80ms ease,
-    border-color 120ms ease;
-  text-decoration: none;
-  color: inherit;
+    border-color 120ms ease,
+    color 120ms ease;
 }
 
-.btn:hover {
-  background: rgba(255, 255, 255, 0.09);
+.btn:hover:not(:disabled) {
+  background: #272a30;
+  border-color: #4a4e58;
 }
 
-.btn:active {
-  transform: translateY(1px);
+.btn:active:not(:disabled) {
+  background: #1d1f24;
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid rgba(201, 162, 74, 0.4);
   outline-offset: 2px;
 }
 
 .btn--primary {
-  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
-  border-color: transparent;
-  color: #fff;
-  box-shadow: 0 10px 24px -12px rgba(90, 169, 255, 0.9);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
 }
 
-.btn--primary:hover {
-  background: linear-gradient(180deg, #6db4ff, #4596f2);
+.btn--primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn--primary:active:not(:disabled) {
+  background: #b8933f;
 }
 
 .btn--ghost {
   background: transparent;
-}
-
-.btn--lg {
-  padding: 14px 20px;
-  font-size: 16px;
-  border-radius: 12px;
-}
-
-.btn--icon {
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border-radius: 9px;
+  border-color: transparent;
   color: var(--muted);
 }
 
-.btn--icon:hover {
+.btn--ghost:hover:not(:disabled) {
+  background: var(--panel-2);
+  border-color: transparent;
   color: var(--text);
 }
 
-.chip {
-  padding: 10px 12px;
+.btn--danger {
+  color: var(--danger);
+  border-color: var(--danger-line);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--danger-soft);
+  border-color: var(--danger);
+}
+
+.btn--lg {
+  padding: 13px 18px;
+  font-size: 15px;
   border-radius: 10px;
+}
+
+.btn--icon {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--radius);
+  color: var(--muted);
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn--icon:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--panel-2);
+  border-color: transparent;
+}
+
+.btn.is-active {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* ---- Chips (radio-like choices) ------------------------------------------- */
+.chip {
+  padding: 9px 12px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-weight: 600;
+  font-size: 13px;
   color: var(--muted);
   transition:
     background 120ms ease,
@@ -130,18 +205,95 @@ button {
     border-color 120ms ease;
 }
 
-.chip:hover {
+.chip:hover:not(:disabled) {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--border-strong);
 }
 
 .chip.is-active {
   color: var(--text);
-  border-color: var(--accent);
-  background: rgba(90, 169, 255, 0.16);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
 }
 
-/* Piece palette (drawn with the chessground piece set). */
+.chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- Segmented control ------------------------------------------------------ */
+.seg {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel-2);
+}
+
+.seg button {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.seg button + button {
+  border-left: 1px solid var(--border);
+}
+
+.seg button:hover {
+  color: var(--text);
+}
+
+.seg button.is-active {
+  background: var(--accent-soft);
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* ---- Stat tiles ------------------------------------------------------------- */
+.stat {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+}
+
+.stat__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stat__value {
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.stat--good .stat__value {
+  color: var(--success);
+}
+
+.stat--bad .stat__value {
+  color: var(--danger);
+}
+
+/* ---- Piece images (cburnett set) ------------------------------------------- */
 .piece-palette.cg-wrap {
   position: static;
   display: grid;
@@ -157,10 +309,10 @@ button {
   height: auto;
   pointer-events: auto;
   cursor: pointer;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 2px solid transparent;
-  background-size: 84%;
+  border-radius: var(--radius);
+  background-color: var(--panel-2);
+  border: 1px solid var(--border);
+  background-size: 82%;
   background-position: center;
   background-repeat: no-repeat;
   transition:
@@ -170,67 +322,59 @@ button {
 }
 
 .piece-palette.cg-wrap piece:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-strong);
 }
 
 .piece-palette.cg-wrap piece.is-active {
-  border-color: var(--accent);
-  background-color: rgba(90, 169, 255, 0.18);
+  border-color: var(--accent-line);
+  background-color: var(--accent-soft);
 }
 
-/* Segmented control. */
-.seg {
+.piece-icon.cg-wrap {
+  position: static;
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.3em;
+  box-sizing: border-box;
+}
+
+.piece-icon.cg-wrap piece {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: auto;
+}
+
+.piece-icon--lg.cg-wrap {
+  width: 2.6em;
+  height: 2.6em;
+  vertical-align: middle;
+}
+
+/* ---- Side badge ------------------------------------------------------------- */
+.side-badge {
+  flex: 0 0 auto;
   display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.seg button {
-  padding: 9px 12px;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.seg button.is-active {
-  background: rgba(90, 169, 255, 0.18);
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  background: var(--panel-2);
   color: var(--text);
 }
 
-/* Shared stat tiles (used by several activities). */
-.stat {
-  padding: 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-}
-
-.stat__label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.stat__value {
-  margin-top: 6px;
-  font-size: 30px;
-  font-weight: 800;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-}
-
-.stat--good .stat__value {
-  color: var(--success);
-}
-
-.stat--bad .stat__value {
-  color: var(--danger);
-}
-
+/* ---- Misc ------------------------------------------------------------------ */
 .loading {
   height: 100%;
   display: grid;
@@ -248,4 +392,50 @@ button {
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
+}
+
+/* ---- Activity headings and shared panel idioms ------------------------------ */
+.bullet__heading,
+.bm__heading,
+.vis__heading,
+.ev__heading,
+.cm__heading,
+.rp__heading,
+.eg__heading,
+.mg__heading,
+.bv__heading,
+.an__title,
+.ot-lib__title,
+.ot__title,
+.results__title,
+.bv__results h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.bullet__heading svg,
+.bm__heading svg,
+.vis__heading svg,
+.ev__heading svg,
+.cm__heading svg,
+.rp__heading svg,
+.eg__heading svg,
+.mg__heading svg,
+.bv__heading svg,
+.an__title svg {
+  color: var(--accent);
+}
+
+.bullet__best svg,
+.bm__stats-line svg,
+.vis__stats-line svg,
+.ev__stats-line svg,
+.cm__stats-line svg,
+.rp__stats-line svg,
+.eg__stats-line svg,
+.mg__stats-line svg,
+.bv__best svg,
+.bm__pool-line svg {
+  color: var(--muted);
 }

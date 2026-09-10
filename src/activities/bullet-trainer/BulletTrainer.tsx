@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Play, RotateCcw, Square, Target, Timer, Trophy, Volume2, VolumeX, XCircle, Zap } from 'lucide-react';
 import { Board, type Key } from '@/board/Board';
-import { PIECE_GLYPH } from '@/chess/squares';
+import { PieceIcon } from '@/components/PieceIcon';
 import { isMuted, setMuted, sounds } from '@/lib/sound';
 import { loadJson, saveJson } from '@/lib/storage';
 import { DURATIONS, nextPuzzle, type DurationSec, type Puzzle } from './drill';
@@ -172,7 +172,6 @@ export default function BulletTrainer() {
   const isLow = running && remainingMs <= 10_000;
   const attempts = solved + misses;
   const accuracy = attempts === 0 ? 100 : Math.round((solved / attempts) * 100);
-  const glyph = PIECE_GLYPH[puzzle.piece.color][puzzle.piece.role];
   const highlights = useMemo(() => (running ? puzzle.highlights : undefined), [running, puzzle]);
 
   const frameClass = [missFlash ? 'is-miss' : '', running ? '' : 'is-locked'].join(' ');
@@ -200,7 +199,9 @@ export default function BulletTrainer() {
             </div>
 
             <div className="bullet__task">
-              <div className={`bullet__task-glyph is-${puzzle.piece.color}`}>{glyph}</div>
+              <div className="bullet__task-glyph">
+                <PieceIcon color={puzzle.piece.color} role={puzzle.piece.role} size="lg" />
+              </div>
               <div className="bullet__task-text">
                 <small>Move the {puzzle.piece.color} {puzzle.piece.role}</small>
                 <strong>

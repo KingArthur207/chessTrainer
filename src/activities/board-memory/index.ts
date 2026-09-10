@@ -7,6 +7,7 @@ export const boardMemory: ActivityDefinition = {
   id: 'board-memory',
   title: 'Board Memory',
   tagline: 'Glimpse a position, then rebuild it from memory.',
+  category: 'Calculation and memory',
   description:
     'Flash a real position for a few seconds, hide it, and reconstruct it piece by piece. Trains the chunked pattern memory strong players rely on.',
   icon: Brain,

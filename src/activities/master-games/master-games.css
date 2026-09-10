@@ -33,10 +33,6 @@
   letter-spacing: -0.01em;
 }
 
-.mg__heading svg {
-  color: #e06c9f;
-}
-
 .mg__lede {
   margin: 0;
   color: var(--muted);
@@ -79,9 +75,9 @@
 .mg__paste {
   width: 100%;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--panel-2);
   color: var(--text);
   font: inherit;
 }
@@ -89,7 +85,7 @@
 .mg__paste {
   min-height: 110px;
   resize: vertical;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   user-select: text;
   -webkit-user-select: text;
@@ -106,14 +102,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.mg__stats-line svg {
-  color: var(--gold);
 }
 
 .mg__stats-line strong {
@@ -134,9 +126,9 @@
 
 .mg__notice {
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 200, 60, 0.12);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-line);
   font-size: 13px;
 }
 
@@ -168,16 +160,16 @@
 
 .mg__status {
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .mg__status.is-user {
-  border-color: rgba(90, 169, 255, 0.5);
-  background: rgba(90, 169, 255, 0.1);
+  border-color: var(--info-line);
+  background: var(--info-soft);
 }
 
 .mg__status.is-busy {
@@ -189,28 +181,28 @@
   flex-direction: column;
   gap: 8px;
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
 }
 
 .mg__feedback.p3 {
-  border-color: rgba(64, 200, 120, 0.7);
-  background: rgba(64, 200, 120, 0.14);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .mg__feedback.p2 {
-  border-color: rgba(126, 231, 135, 0.6);
-  background: rgba(126, 231, 135, 0.1);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .mg__feedback.p1 {
-  border-color: rgba(255, 200, 60, 0.6);
-  background: rgba(255, 200, 60, 0.1);
+  border-color: var(--warn-line);
+  background: var(--warn-soft);
 }
 
 .mg__feedback.p0 {
-  border-color: rgba(255, 92, 92, 0.6);
-  background: rgba(255, 92, 92, 0.1);
+  border-color: var(--danger-line);
+  background: var(--danger-soft);
 }
 
 .mg__points {
@@ -249,8 +241,8 @@
   max-height: 150px;
   overflow: auto;
   padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
   border: 1px solid var(--border);
   font-size: 14px;
   line-height: 1.8;
@@ -312,7 +304,7 @@
   align-items: center;
   padding: 6px 10px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 13px;
 }

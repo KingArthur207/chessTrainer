@@ -9,6 +9,7 @@ export const openingTrainer: ActivityDefinition = {
   id: 'opening-trainer',
   title: 'Opening Trainer',
   tagline: 'Build your repertoire and drill it with spaced repetition.',
+  category: 'Openings',
   description:
     'Store theory per opening as a move tree (play moves or paste PGN), then practise: the app plays the other side and quizzes you on every move.',
   icon: BookOpen,

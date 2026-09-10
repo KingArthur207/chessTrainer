@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { BookOpen, Pencil, Play, Plus, Trash2 } from 'lucide-react';
+import { PieceIcon } from '@/components/PieceIcon';
 import { countMoves, leafLines, type Opening, type Side } from './model';
 import { isDue } from './srs';
 import type { ProgressTable } from './store';
@@ -14,7 +15,11 @@ interface OpeningLibraryProps {
 }
 
 function SideBadge({ side }: { side: Side }) {
-  return <span className={`side-badge side-badge--${side}`}>{side === 'white' ? '♔ White' : '♚ Black'}</span>;
+  return (
+    <span className={`side-badge side-badge--${side}`}>
+      <PieceIcon color={side} role="king" /> {side}
+    </span>
+  );
 }
 
 function OpeningCard({
@@ -136,10 +141,10 @@ export function OpeningLibrary({ openings, progress, onCreate, onDelete, onEdit,
           />
           <div className="seg" role="radiogroup" aria-label="Side you play">
             <button type="button" className={color === 'white' ? 'is-active' : ''} onClick={() => setColor('white')}>
-              ♔ White
+              <PieceIcon color="white" role="king" /> White
             </button>
             <button type="button" className={color === 'black' ? 'is-active' : ''} onClick={() => setColor('black')}>
-              ♚ Black
+              <PieceIcon color="black" role="king" /> Black
             </button>
           </div>
           <button type="submit" className="btn btn--primary" disabled={!name.trim()}>

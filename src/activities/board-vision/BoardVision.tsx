@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Compass, Eye, Lightbulb, Play, RotateCcw, Square as StopIcon, Trophy } from 'lucide-react';
 import { Board, type DrawShape, type Key } from '@/board/Board';
+import { PieceIcon } from '@/components/PieceIcon';
 import { singlePieceDestinations, squareColor, type Square } from '@/chess/squares';
 import { sounds } from '@/lib/sound';
 import { loadJson, saveJson } from '@/lib/storage';
@@ -309,7 +310,7 @@ export default function BoardVision() {
                 <div className="bv__chips bv__perspectives" role="radiogroup" aria-label="Perspective">
                   {(['white', 'black', 'random'] as const).map((p) => (
                     <button key={p} role="radio" aria-checked={p === perspective} className={`chip ${p === perspective ? 'is-active' : ''}`} onClick={() => setPerspective(p)}>
-                      {p === 'white' ? '♔ White' : p === 'black' ? '♚ Black' : 'Random'}
+                      {p === 'random' ? 'Random' : <><PieceIcon color={p} role="king" /> {p === 'white' ? 'White' : 'Black'}</>}
                     </button>
                   ))}
                 </div>
@@ -370,7 +371,7 @@ export default function BoardVision() {
             </div>
             {mode === 'squares' && (
               <span className="bv__orientation">
-                {orientation === 'white' ? '♔ White at the bottom' : '♚ Black at the bottom'}
+                <PieceIcon color={orientation} role="king" /> {orientation === 'white' ? 'White' : 'Black'} at the bottom
               </span>
             )}
             <div className="bv__prompt-card">

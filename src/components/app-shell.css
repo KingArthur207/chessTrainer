@@ -5,16 +5,14 @@
 }
 
 .shell__header {
-  height: 56px;
+  height: 52px;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 0 16px;
   border-bottom: 1px solid var(--border);
-  background: rgba(15, 17, 21, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--bg-elev);
   -webkit-app-region: drag;
   transition: padding-left 150ms ease;
 }
@@ -32,23 +30,31 @@ body.has-mac-titlebar .shell__header {
 .shell__brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   text-decoration: none;
   color: inherit;
-  font-weight: 700;
-  letter-spacing: -0.01em;
 }
 
 .shell__logo {
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: 7px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--accent), #8b5cf6);
-  color: #fff;
-  font-size: 18px;
-  line-height: 1;
+  background: var(--panel-2);
+  border: 1px solid var(--border-strong);
+  font-size: 15px;
+}
+
+.shell__logo img {
+  display: block;
+}
+
+.shell__wordmark {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0;
 }
 
 .shell__divider {
@@ -58,7 +64,8 @@ body.has-mac-titlebar .shell__header {
 }
 
 .shell__title {
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 13.5px;
   color: var(--muted);
 }
 

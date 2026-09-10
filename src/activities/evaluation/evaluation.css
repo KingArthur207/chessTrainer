@@ -33,10 +33,6 @@
   letter-spacing: -0.01em;
 }
 
-.ev__heading svg {
-  color: #ffb86c;
-}
-
 .ev__lede {
   margin: 0;
   color: var(--muted);
@@ -85,8 +81,8 @@
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 13px;
 }
@@ -100,7 +96,7 @@
 }
 
 .engine-status.is-missing {
-  border-color: rgba(255, 92, 92, 0.5);
+  border-color: var(--danger-line);
   color: var(--danger);
 }
 
@@ -113,14 +109,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 14px;
-}
-
-.ev__stats-line svg {
-  color: var(--gold);
 }
 
 .ev__stats-line strong {
@@ -140,9 +132,9 @@
 
 .ev__notice {
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255, 200, 60, 0.12);
-  border: 1px solid rgba(255, 200, 60, 0.4);
+  border-radius: var(--radius);
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-line);
   font-size: 13px;
 }
 
@@ -159,7 +151,7 @@
   gap: 8px;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--panel-2);
   border: 1px solid var(--border);
   font-size: 12px;
   font-weight: 600;
@@ -184,9 +176,9 @@
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
   font-weight: 600;
   font-size: 14px;
   text-align: left;
@@ -219,21 +211,21 @@
 
 .ev__scale button.is-guess {
   border-color: var(--accent);
-  background: rgba(90, 169, 255, 0.16);
+  background: var(--accent-soft);
 }
 
 .ev__scale button.is-engine {
   border-color: var(--success);
-  background: rgba(64, 200, 120, 0.16);
+  background: var(--success-soft);
 }
 
 .ev__scale button.is-guess.is-engine {
-  box-shadow: 0 0 0 2px rgba(64, 200, 120, 0.4);
+  box-shadow: 0 0 0 2px var(--success-line);
 }
 
 .ev__scale button.is-wrong {
   border-color: var(--danger);
-  background: rgba(255, 92, 92, 0.12);
+  background: var(--danger-soft);
 }
 
 .ev__analysing {
@@ -268,24 +260,24 @@
   flex-direction: column;
   gap: 10px;
   padding: 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-2);
 }
 
 .ev__reveal.is-exact {
-  border-color: rgba(64, 200, 120, 0.6);
-  background: rgba(64, 200, 120, 0.1);
+  border-color: var(--success-line);
+  background: var(--success-soft);
 }
 
 .ev__reveal.is-close {
-  border-color: rgba(255, 200, 60, 0.6);
-  background: rgba(255, 200, 60, 0.08);
+  border-color: var(--warn-line);
+  background: var(--warn-soft);
 }
 
 .ev__reveal.is-off {
-  border-color: rgba(255, 92, 92, 0.6);
-  background: rgba(255, 92, 92, 0.08);
+  border-color: var(--danger-line);
+  background: var(--danger-soft);
 }
 
 .ev__reveal-top {
@@ -316,7 +308,7 @@
 .ev__bar {
   height: 14px;
   border-radius: 999px;
-  background: #1d2129;
+  background: var(--panel-2);
   border: 1px solid var(--border);
   overflow: hidden;
   position: relative;
@@ -324,7 +316,7 @@
 
 .ev__bar > div {
   height: 100%;
-  background: #e9edf4;
+  background: var(--text);
   transition: width 400ms ease;
 }
 
@@ -335,11 +327,11 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: rgba(255, 92, 92, 0.6);
+  background: var(--danger-line);
 }
 
 .ev__line {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.5;
   color: var(--text);
